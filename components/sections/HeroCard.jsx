@@ -65,14 +65,14 @@ export default function HeroCard() {
       initial={{ opacity: 0, x: 40 }}
       animate={{ opacity: 1, x: 0 }}
       transition={{ duration: 0.8, delay: 0.3 }}
-      className="relative"
+      className="relative w-full overflow-hidden"
     >
       {/* Glow */}
       <div className="absolute -inset-4 bg-cyan-500/10 rounded-3xl blur-2xl" />
 
       <div className="relative rounded-3xl border border-white/10 bg-[#0a0f1e]/90 backdrop-blur-xl overflow-hidden">
         {/* Header */}
-        <div className="flex items-center justify-between px-5 py-4 border-b border-white/8">
+        <div className="flex items-center justify-between px-4 py-3 sm:px-5 sm:py-4 border-b border-white/8">
           <div className="flex items-center gap-3">
             <div className="w-9 h-9 rounded-xl bg-cyan-500/15 flex items-center justify-center">
               <Calculator className="w-4 h-4 text-cyan-400" />
@@ -89,10 +89,10 @@ export default function HeroCard() {
         </div>
 
         {/* Course rows */}
-        <div className="p-4 space-y-2">
+        <div className="p-3 sm:p-4 space-y-2">
           {courses.map(course => (
-            <div key={course.id} className="flex items-center gap-2">
-              <div className="flex-1 flex items-center gap-2 px-3 py-2 rounded-xl bg-white/5 border border-white/8">
+            <div key={course.id} className="flex flex-col gap-2 sm:flex-row sm:items-center">
+              <div className="flex-1 flex flex-wrap items-center gap-2 px-3 py-2 rounded-xl bg-white/5 border border-white/8">
                 <input
                   type="text"
                   value={course.name}
@@ -124,12 +124,12 @@ export default function HeroCard() {
                   <span className="text-xs text-gray-500">units</span>
                 </div>
               </div>
-              <div className="flex gap-1">
+              <div className="flex flex-wrap justify-end gap-1">
                 {QUICK_GRADES.map(g => (
                   <button
                     key={g}
                     onClick={() => updateGrade(course.id, g)}
-                    className={`w-7 h-7 rounded-lg text-xs font-bold transition-all ${
+                    className={`min-w-[1.5rem] rounded-lg text-xs font-bold px-2 py-1 transition-all ${
                       course.grade === g
                         ? 'bg-cyan-500 text-white scale-110'
                         : 'bg-white/5 text-gray-400 hover:bg-white/10 hover:text-white'

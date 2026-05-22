@@ -35,7 +35,7 @@ export default function Home() {
             </div>
 
             {/* Hero Right - Floating Card */}
-            <div className="hidden lg:flex w-full max-w-lg justify-center">
+            <div className="flex w-full justify-center">
               <HeroCard />
             </div>
           </div>
