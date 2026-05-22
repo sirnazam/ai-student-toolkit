@@ -56,7 +56,7 @@ export default function CGPACalculatorPage() {
   const [saved, setSaved] = useState(false)
   const [schoolSearch, setSchoolSearch] = useState('')
   const [activeTab, setActiveTab] = useState('calculator') // calculator | semesters | predictor
-  const [customSchoolName, setCustomSchoolName] = useState('')
+  const [customSchoolName, setCustomSchoolName] = useLocalStorage('cgpa_custom_school', '')
   const [customSystem, setCustomSystem] = useState('five_point')
   const [showScaleOverride, setShowScaleOverride] = useState(false)
   const [openDropdown, setOpenDropdown] = useState(null)
@@ -80,6 +80,9 @@ export default function CGPACalculatorPage() {
       state: '',
     }
     : SCHOOLS.find(s => s.abbr === selectedSchool) || SCHOOLS[0]
+  const displaySchoolName = selectedSchool === 'CUSTOM'
+    ? (customSchoolName || 'Custom Institution')
+    : school.name
   const system = school.system
   const gradingSystem = GRADING_SYSTEMS[system]
   const activeSemester = semesters[activeSemIdx] || semesters[0]
@@ -206,7 +209,7 @@ export default function CGPACalculatorPage() {
               </div>
               <div>
                 <h1 className="text-sm font-bold text-white">CGPA Calculator</h1>
-                <p className="text-xs text-gray-400">{school.name}</p>
+                <p className="text-xs text-gray-400">{displaySchoolName}</p>
               </div>
             </div>
           </div>
@@ -248,7 +251,7 @@ export default function CGPACalculatorPage() {
               </div>
               <div className="text-left">
                 <p className="text-xs text-gray-400">Your University</p>
-                <p className="text-sm font-semibold text-white">{school.name}</p>
+                <p className="text-sm font-semibold text-white">{displaySchoolName}</p>
               </div>
             </div>
             <div className="flex items-center gap-2">

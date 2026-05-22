@@ -1,5 +1,6 @@
 'use client'
 
+import Link from 'next/link'
 import { motion } from 'framer-motion'
 import { ArrowRight } from 'lucide-react'
 
@@ -16,18 +17,19 @@ const cardVariants = {
   },
 }
 
-export default function ToolCard({ icon: Icon, title, description, color, delay = 0 }) {
+export default function ToolCard({ icon: Icon, title, description, color, delay = 0, href = '#' }) {
   return (
-    <motion.div
-      variants={cardVariants}
-      initial="hidden"
-      whileInView="visible"
-      whileHover="hover"
-      viewport={{ once: true, margin: '-100px' }}
-      transition={{ delay: delay * 0.1 }}
-      className="group"
-    >
-      <div className="glass rounded-2xl p-8 h-full backdrop-blur-xl border border-white/10 hover:border-white/20 transition-smooth relative overflow-hidden">
+    <Link href={href} className="group block">
+      <motion.div
+        variants={cardVariants}
+        initial="hidden"
+        whileInView="visible"
+        whileHover="hover"
+        viewport={{ once: true, margin: '-100px' }}
+        transition={{ delay: delay * 0.1 }}
+        className="group"
+      >
+        <div className="glass rounded-2xl p-8 h-full backdrop-blur-xl border border-white/10 hover:border-white/20 transition-smooth relative overflow-hidden">
         {/* Gradient background effect on hover */}
         <div className="absolute inset-0 bg-gradient-card opacity-0 group-hover:opacity-100 transition-opacity duration-500 rounded-2xl"></div>
 
@@ -59,5 +61,6 @@ export default function ToolCard({ icon: Icon, title, description, color, delay 
         <div className={`absolute top-0 right-0 w-32 h-32 bg-${color}-500 rounded-full filter blur-3xl opacity-0 group-hover:opacity-10 transition-opacity duration-500 -z-0`}></div>
       </div>
     </motion.div>
+    </Link>
   )
 }

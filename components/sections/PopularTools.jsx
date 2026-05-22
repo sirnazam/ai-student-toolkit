@@ -30,24 +30,28 @@ const tools = [
     title: 'CGPA Calculator',
     description: 'Calculate your Cumulative Grade Point Average instantly. Track your academic performance across all courses.',
     color: 'primary',
+    href: '/tools/cgpa-calculator',
   },
   {
     icon: BookOpen,
     title: 'AI Note Summarizer',
     description: 'Transform lengthy notes into concise summaries. Save time and improve retention with AI-powered summarization.',
     color: 'cyan',
+    href: '/tools/note-summarizer',
   },
   {
     icon: FileText,
     title: 'CV Builder',
     description: 'Create professional CVs in minutes. Choose from premium templates designed for African students.',
     color: 'green',
+    href: '/tools/cv-builder',
   },
   {
     icon: Lightbulb,
     title: 'Assignment Helper',
     description: 'Get smart suggestions and guidance for your assignments. Improve quality and meet deadlines easily.',
     color: 'amber',
+    href: '/tools/assignment-helper',
   },
 ]
 
@@ -98,6 +102,7 @@ export default function PopularTools() {
               title={tool.title}
               description={tool.description}
               color={tool.color}
+              href={tool.href}
               delay={index}
             />
           ))}
