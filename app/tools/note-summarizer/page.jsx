@@ -14,8 +14,26 @@ export default function NoteSummarizerPage() {
       setStatus('Please enter a valid email address.')
       return
     }
+
+    const toolName = 'AI Note Summarizer'
+    const mailto = `mailto:sirnazam01@gmail.com?subject=${encodeURIComponent(
+      `Waitlist request for ${toolName}`
+    )}&body=${encodeURIComponent(
+      `Please add this email to the waitlist for ${toolName}: ${email}`
+    )}`
+
+    try {
+      const stored = localStorage.getItem('waitlist_emails')
+      const list = stored ? JSON.parse(stored) : []
+      if (Array.isArray(list)) {
+        list.push({ email, tool: toolName, createdAt: new Date().toISOString() })
+        localStorage.setItem('waitlist_emails', JSON.stringify(list))
+      }
+    } catch {}
+
     setStatus('Thank you! You will be notified when the tool launches.')
     setEmail('')
+    window.location.href = mailto
   }
 
   return (
