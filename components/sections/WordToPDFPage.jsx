@@ -1,7 +1,6 @@
 'use client'
 
 import { useCallback, useRef, useState } from 'react'
-import ConvertApi from 'convertapi-js'
 import {
   AlertTriangle,
   CheckCircle2,
@@ -28,7 +27,7 @@ export default function WordToPDFPage() {
   const [isLoading, setIsLoading] = useState(false)
   const inputRef = useRef(null)
 
-  const convertApi = ConvertApi.auth('trial')
+  // ConvertAPI client will be imported dynamically in the browser
 
   const showToast = useCallback((message) => {
     setToast(message)
@@ -62,6 +61,8 @@ export default function WordToPDFPage() {
     setIsConverting(true)
 
     try {
+      const ConvertApi = (await import('convertapi-js')).default
+      const convertApi = ConvertApi.auth('trial')
       const params = convertApi.createParams()
       params.append('File', wordFile)
 
