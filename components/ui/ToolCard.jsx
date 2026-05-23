@@ -17,7 +17,7 @@ const cardVariants = {
   },
 }
 
-export default function ToolCard({ icon: Icon, title, description, color, delay = 0, href = '#' }) {
+export default function ToolCard({ icon: Icon, title, description, color, delay = 0, href = '#', badge }) {
   return (
     <Link href={href} className="group block">
       <motion.div
@@ -42,9 +42,16 @@ export default function ToolCard({ icon: Icon, title, description, color, delay 
 
           {/* Title and description */}
           <div className="space-y-2">
-            <h3 className="text-xl font-bold text-white group-hover:gradient-text transition-smooth">
-              {title}
-            </h3>
+            <div className="flex flex-wrap items-center gap-3">
+              <h3 className="text-xl font-bold text-white group-hover:gradient-text transition-smooth">
+                {title}
+              </h3>
+              {badge ? (
+                <span className="rounded-full bg-white/10 text-xs uppercase tracking-[0.2em] text-white px-3 py-1">
+                  {badge}
+                </span>
+              ) : null}
+            </div>
             <p className="text-gray-300 text-sm leading-relaxed">
               {description}
             </p>
