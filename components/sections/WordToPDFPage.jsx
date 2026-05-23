@@ -1,9 +1,7 @@
 'use client'
 
 import { useCallback, useRef, useState } from 'react'
-import mammoth from 'mammoth'
-import html2canvas from 'html2canvas'
-import jsPDF from 'jspdf'
+import ConvertApi from 'convertapi-js'
 import {
   AlertTriangle,
   CheckCircle2,
@@ -11,7 +9,6 @@ import {
   Loader2,
   Upload,
   X,
-  Download,
 } from 'lucide-react'
 
 function formatBytes(bytes) {
@@ -28,10 +25,10 @@ export default function WordToPDFPage() {
   const [error, setError] = useState('')
   const [isConverting, setIsConverting] = useState(false)
   const [toast, setToast] = useState('')
-  const [htmlContent, setHtmlContent] = useState('')
   const [isLoading, setIsLoading] = useState(false)
   const inputRef = useRef(null)
-  const previewRef = useRef(null)
+
+  const convertApi = ConvertApi.auth('trial')
 
   const showToast = useCallback((message) => {
     setToast(message)
@@ -56,24 +53,44 @@ export default function WordToPDFPage() {
     }
 
     setFile(wordFile)
-    extractContent(wordFile)
+    convertFile(wordFile)
   }, [])
 
-  const extractContent = async (wordFile) => {
+  const convertFile = async (wordFile) => {
     setIsLoading(true)
     setError('')
-    setHtmlContent('')
+    setIsConverting(true)
 
     try {
-      const arrayBuffer = await wordFile.arrayBuffer()
-      const result = await mammoth.convertToHtml({ arrayBuffer })
-      setHtmlContent(result.value)
-    } catch (err) {
-      setError('Failed to extract content from the Word document. Please try another file.')
-      console.error('Extraction error:', err)
+      const params = convertApi.createParams()
+      params.append('File', wordFile)
+
+      const result = await convertApi.convert('docx', 'pdf', params)
+      const url = result.files && result.files[0] && result.files[0].Url
+
+      if (!url) throw new Error('No file URL returned from ConvertAPI')
+
+      // Fetch the converted PDF and download with original filename
+      const resp = await fetch(url)
+      if (!resp.ok) throw new Error('Failed to fetch converted PDF')
+      const blob = await resp.blob()
+      const objectUrl = URL.createObjectURL(blob)
+      const a = document.createElement('a')
+      a.href = objectUrl
+      a.download = wordFile.name.replace(/\.(doc|docx)$/i, '.pdf')
+      document.body.appendChild(a)
+      a.click()
+      a.remove()
+      URL.revokeObjectURL(objectUrl)
+
+      showToast('Document converted successfully!')
       setFile(null)
+    } catch (err) {
+      console.error('ConvertAPI error:', err)
+      setError('An error occurred during conversion. Please try again.')
     } finally {
       setIsLoading(false)
+      setIsConverting(false)
     }
   }
 
@@ -96,61 +113,10 @@ export default function WordToPDFPage() {
 
   const removeFile = () => {
     setFile(null)
-    setHtmlContent('')
     setError('')
   }
 
-  const convertToPDF = async () => {
-    if (!file || !previewRef.current) return
-
-    setIsConverting(true)
-    setError('')
-
-    try {
-      const canvas = await html2canvas(previewRef.current, {
-        scale: 2,
-        useCORS: true,
-        logging: false,
-        backgroundColor: '#ffffff',
-      })
-
-      const imgData = canvas.toDataURL('image/png')
-      const pdf = new jsPDF({
-        orientation: 'portrait',
-        unit: 'mm',
-        format: 'a4',
-      })
-
-      const pageWidth = pdf.internal.pageSize.getWidth()
-      const pageHeight = pdf.internal.pageSize.getHeight()
-      const imgWidth = pageWidth
-      const imgHeight = (canvas.height * imgWidth) / canvas.width
-
-      let heightLeft = imgHeight
-      let position = 0
-
-      pdf.addImage(imgData, 'PNG', 0, position, imgWidth, imgHeight)
-      heightLeft -= pageHeight
-
-      while (heightLeft > 0) {
-        position = heightLeft - imgHeight
-        pdf.addPage()
-        pdf.addImage(imgData, 'PNG', 0, position, imgWidth, imgHeight)
-        heightLeft -= pageHeight
-      }
-
-      const filename = file.name.replace(/\.(doc|docx)$/i, '.pdf')
-      pdf.save(filename)
-
-      showToast('Document converted successfully!')
-      removeFile()
-    } catch (err) {
-      setError('An error occurred while converting to PDF. Please try again.')
-      console.error('Conversion error:', err)
-    } finally {
-      setIsConverting(false)
-    }
-  }
+  // Note: conversion now happens automatically on upload via convertFile()
 
   return (
     <main className="min-h-screen bg-[#070912] text-white px-4 py-10 sm:px-6 lg:px-8">
@@ -237,55 +203,12 @@ export default function WordToPDFPage() {
               <section className="rounded-[2rem] border border-white/10 bg-white/5 p-6 shadow-2xl shadow-black/20 backdrop-blur-xl sm:p-8">
                 <div className="flex items-center gap-3">
                   <Loader2 className="h-5 w-5 animate-spin text-cyan-300" />
-                  <p className="text-sm font-medium text-gray-300">Extracting content from your document...</p>
+                  <p className="text-sm font-medium text-gray-300">Converting your document...</p>
                 </div>
               </section>
             )}
 
-            {htmlContent && (
-              <>
-                <section className="rounded-[2rem] border border-white/10 bg-white/5 p-6 shadow-2xl shadow-black/20 backdrop-blur-xl sm:p-8">
-                  <h2 className="mb-4 text-lg font-semibold text-white">Preview</h2>
-                  <div className="rounded-2xl border border-white/10 bg-white p-6 sm:p-8 overflow-y-auto max-h-[600px]">
-                    <div
-                      ref={previewRef}
-                      className="prose prose-invert max-w-none bg-white text-black p-8 rounded-lg"
-                      style={{
-                        minHeight: '297mm',
-                        width: '210mm',
-                        margin: '0 auto',
-                        fontSize: '12pt',
-                        lineHeight: '1.5',
-                      }}
-                      dangerouslySetInnerHTML={{ __html: htmlContent }}
-                    />
-                  </div>
-                </section>
-
-                <section className="flex gap-4 sm:gap-6">
-                  <button
-                    type="button"
-                    onClick={convertToPDF}
-                    disabled={isConverting}
-                    className="flex-1 inline-flex items-center justify-center gap-2 rounded-full bg-cyan-500 px-6 py-3 text-sm font-semibold text-black transition hover:bg-cyan-400 disabled:opacity-50 disabled:cursor-not-allowed"
-                  >
-                    {isConverting ? (
-                      <>
-                        <Loader2 className="h-5 w-5 animate-spin" />
-                        Converting your document...
-                      </>
-                    ) : (
-                      <>
-                        <Download className="h-5 w-5" />
-                        Convert to PDF
-                      </>
-                    )}
-                  </button>
-                </section>
-              </>
-            )}
-
-            {error && htmlContent === '' && !isLoading && (
+            {error && !isLoading && (
               <div className="flex items-start gap-3 rounded-3xl border border-red-500/20 bg-red-500/10 p-4 text-sm text-red-100">
                 <AlertTriangle className="h-5 w-5 flex-shrink-0 text-red-300" />
                 <p>{error}</p>
