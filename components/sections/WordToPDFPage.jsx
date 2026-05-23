@@ -24,10 +24,7 @@ export default function WordToPDFPage() {
   const [error, setError] = useState('')
   const [isConverting, setIsConverting] = useState(false)
   const [toast, setToast] = useState('')
-  const [isLoading, setIsLoading] = useState(false)
   const inputRef = useRef(null)
-
-  // ConvertAPI client will be imported dynamically in the browser
 
   const showToast = useCallback((message) => {
     setToast(message)
@@ -40,7 +37,7 @@ export default function WordToPDFPage() {
 
     if (!wordFile) return
 
-    const isWordFile = 
+    const isWordFile =
       wordFile.type === 'application/vnd.openxmlformats-officedocument.wordprocessingml.document' ||
       wordFile.type === 'application/msword' ||
       wordFile.name.toLowerCase().endsWith('.docx') ||
@@ -52,45 +49,33 @@ export default function WordToPDFPage() {
     }
 
     setFile(wordFile)
-    convertFile(wordFile)
   }, [])
 
-  const convertFile = async (wordFile) => {
-    setIsLoading(true)
-    setError('')
+  const handleConvert = async () => {
+    if (!file) return
     setIsConverting(true)
-
     try {
-      const ConvertApi = (await import('convertapi-js')).default
-      const convertApi = ConvertApi.auth('trial')
-      const params = convertApi.createParams()
-      params.append('File', wordFile)
+      const formData = new FormData()
+      formData.append('file', file)
 
-      const result = await convertApi.convert('docx', 'pdf', params)
-      const url = result.files && result.files[0] && result.files[0].Url
+      const response = await fetch(
+        'https://pdf-converter-api-8z0x.onrender.com/convert',
+        { method: 'POST', body: formData }
+      )
 
-      if (!url) throw new Error('No file URL returned from ConvertAPI')
+      if (!response.ok) throw new Error('Conversion failed')
 
-      // Fetch the converted PDF and download with original filename
-      const resp = await fetch(url)
-      if (!resp.ok) throw new Error('Failed to fetch converted PDF')
-      const blob = await resp.blob()
-      const objectUrl = URL.createObjectURL(blob)
+      const blob = await response.blob()
+      const url = URL.createObjectURL(blob)
       const a = document.createElement('a')
-      a.href = objectUrl
-      a.download = wordFile.name.replace(/\.(doc|docx)$/i, '.pdf')
-      document.body.appendChild(a)
+      a.href = url
+      a.download = file.name.replace('.docx', '.pdf')
       a.click()
-      a.remove()
-      URL.revokeObjectURL(objectUrl)
-
+      URL.revokeObjectURL(url)
       showToast('Document converted successfully!')
-      setFile(null)
-    } catch (err) {
-      console.error('ConvertAPI error:', err)
-      setError('An error occurred during conversion. Please try again.')
+    } catch (error) {
+      setError('Conversion failed. Please try again.')
     } finally {
-      setIsLoading(false)
       setIsConverting(false)
     }
   }
@@ -116,8 +101,6 @@ export default function WordToPDFPage() {
     setFile(null)
     setError('')
   }
-
-  // Note: conversion now happens automatically on upload via convertFile()
 
   return (
     <main className="min-h-screen bg-[#070912] text-white px-4 py-10 sm:px-6 lg:px-8">
@@ -181,41 +164,47 @@ export default function WordToPDFPage() {
             )}
           </section>
         ) : (
-          <div className="space-y-8">
-            <section className="rounded-[2rem] border border-white/10 bg-white/5 p-6 shadow-2xl shadow-black/20 backdrop-blur-xl sm:p-8">
-              <div className="flex items-start justify-between gap-4">
-                <div>
-                  <p className="text-sm font-medium text-gray-400">File information</p>
-                  <p className="mt-2 text-lg font-semibold text-white">{file.name}</p>
-                  <p className="mt-1 text-sm text-gray-400">{formatBytes(file.size)}</p>
-                </div>
+          <section className="rounded-[2rem] border border-white/10 bg-white/5 p-6 shadow-2xl shadow-black/20 backdrop-blur-xl sm:p-8">
+            <div className="flex flex-col gap-6 sm:flex-row sm:items-center sm:justify-between">
+              <div>
+                <p className="text-sm font-medium text-gray-400">Selected file</p>
+                <p className="mt-2 text-lg font-semibold text-white">{file.name}</p>
+                <p className="mt-1 text-sm text-gray-400">{formatBytes(file.size)}</p>
+              </div>
+              <div className="flex flex-col gap-3 sm:flex-row">
+                <button
+                  type="button"
+                  onClick={handleConvert}
+                  disabled={isConverting}
+                  className="inline-flex items-center justify-center rounded-full bg-cyan-500 px-5 py-3 text-sm font-semibold text-black transition hover:bg-cyan-400 disabled:opacity-50"
+                >
+                  {isConverting ? 'Converting...' : 'Convert to PDF'}
+                </button>
                 <button
                   type="button"
                   onClick={removeFile}
-                  disabled={isLoading || isConverting}
-                  className="rounded-full bg-red-500/10 p-2 text-red-300 transition hover:bg-red-500/20 disabled:opacity-50"
+                  disabled={isConverting}
+                  className="inline-flex items-center justify-center rounded-full border border-white/10 bg-white/5 px-5 py-3 text-sm font-semibold text-white transition hover:border-cyan-400 disabled:opacity-50"
                 >
-                  <X className="h-5 w-5" />
+                  Remove file
                 </button>
               </div>
-            </section>
+            </div>
 
-            {isLoading && (
-              <section className="rounded-[2rem] border border-white/10 bg-white/5 p-6 shadow-2xl shadow-black/20 backdrop-blur-xl sm:p-8">
-                <div className="flex items-center gap-3">
-                  <Loader2 className="h-5 w-5 animate-spin text-cyan-300" />
-                  <p className="text-sm font-medium text-gray-300">Converting your document...</p>
-                </div>
-              </section>
+            {isConverting && (
+              <div className="mt-6 flex items-center gap-3 rounded-3xl border border-white/10 bg-white/5 p-4 text-sm text-gray-300">
+                <Loader2 className="h-5 w-5 animate-spin text-cyan-300" />
+                <p>Converting your document... This may take up to 60 seconds on first use.</p>
+              </div>
             )}
 
-            {error && !isLoading && (
-              <div className="flex items-start gap-3 rounded-3xl border border-red-500/20 bg-red-500/10 p-4 text-sm text-red-100">
+            {error && !isConverting && (
+              <div className="mt-6 flex items-start gap-3 rounded-3xl border border-red-500/20 bg-red-500/10 p-4 text-sm text-red-100">
                 <AlertTriangle className="h-5 w-5 flex-shrink-0 text-red-300" />
                 <p>{error}</p>
               </div>
             )}
-          </div>
+          </section>
         )}
       </div>
 

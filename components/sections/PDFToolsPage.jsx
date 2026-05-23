@@ -48,7 +48,7 @@ const tools = [
     description: 'Convert assignment documents from Word to PDF format quickly.',
     href: '/tools/pdf-tools/word-to-pdf',
     icon: FileInput,
-    status: 'Live',
+    status: 'LIVE',
   },
   {
     title: 'PDF to Word',
@@ -127,7 +127,7 @@ export default function PDFToolsPage() {
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
           {tools.map((tool) => {
             const ToolIcon = tool.icon
-            const isLive = tool.status === 'Live'
+            const isLive = tool.status.toLowerCase() === 'live'
             const card = (
               <div
                 className={`h-full rounded-3xl border p-6 bg-white/5 transition-all ${
