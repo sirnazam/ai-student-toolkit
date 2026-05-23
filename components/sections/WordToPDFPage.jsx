@@ -59,7 +59,7 @@ export default function WordToPDFPage() {
       formData.append('file', file)
 
       const response = await fetch(
-        'https://pdf-converter-api-8z0x.onrender.com/convert',
+        'https://pdf-converter-api-oyer.onrender.com/convert',
         { method: 'POST', body: formData }
       )
 
