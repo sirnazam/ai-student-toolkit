@@ -39,8 +39,9 @@ const tools = [
   {
     title: 'Split PDF',
     description: 'Break a PDF into smaller files or extract only the pages you need.',
+    href: '/tools/pdf-tools/split',
     icon: Scissors,
-    status: 'Coming Soon',
+    status: 'Live',
   },
   {
     title: 'Word to PDF',
