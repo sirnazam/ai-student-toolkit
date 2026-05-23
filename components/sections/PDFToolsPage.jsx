@@ -32,8 +32,9 @@ const tools = [
   {
     title: 'Compress PDF',
     description: 'Reduce PDF file size for faster sharing and easy upload submissions.',
+    href: '/tools/pdf-tools/compress',
     icon: FileMinus,
-    status: 'Coming Soon',
+    status: 'Live',
   },
   {
     title: 'Split PDF',
@@ -157,20 +158,21 @@ export default function PDFToolsPage() {
                   <p className="text-sm leading-relaxed text-gray-300">{tool.description}</p>
                 </div>
 
-                {isLive ? (
-                  <div className="mt-8 text-sm font-medium text-teal-300">Open tool →</div>
+                {isLive && tool.href ? (
+                  <Link
+                    href={tool.href}
+                    className="mt-8 inline-flex text-sm font-medium text-teal-300 transition hover:text-teal-100"
+                  >
+                    Open tool →
+                  </Link>
                 ) : (
                   <div className="mt-8 text-sm font-medium text-gray-500">Coming soon</div>
                 )}
               </div>
             )
 
-            return tool.href ? (
-              <Link key={tool.title} href={tool.href} className="group">
-                {card}
-              </Link>
-            ) : (
-              <div key={tool.title} className="group cursor-not-allowed">
+            return (
+              <div key={tool.title} className="group">
                 {card}
               </div>
             )
