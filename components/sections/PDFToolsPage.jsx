@@ -7,13 +7,11 @@ import {
   FileMinus,
   Scissors,
   FileInput,
-  FileArrowDown,
   ImageIcon,
   RotateCcw,
   Hash,
   FileEdit,
   BookOpen,
-  FilePlus,
 } from 'lucide-react'
 
 const tools = [
@@ -52,7 +50,7 @@ const tools = [
   {
     title: 'PDF to Word',
     description: 'Turn your PDF into an editable Word document for easy updates.',
-    icon: FileArrowDown,
+    icon: FileEdit,
     status: 'Coming Soon',
   },
   {

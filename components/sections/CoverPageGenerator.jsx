@@ -2,7 +2,7 @@
 
 import { useMemo, useState } from 'react'
 import Link from 'next/link'
-import { Search, Printer } from 'lucide-react'
+import { Search, Printer, Sparkles } from 'lucide-react'
 import { SCHOOLS } from '@/lib/schools'
 
 const documentTypes = [
@@ -19,7 +19,7 @@ const semesters = ['First Semester', 'Second Semester']
 
 export default function CoverPageGenerator() {
   const [form, setForm] = useState({
-    documentType: 'Project Report',
+    documentType: '',
     institutionName: '',
     faculty: '',
     department: '',
@@ -28,11 +28,14 @@ export default function CoverPageGenerator() {
     supervisorName: '',
     studentName: '',
     matricNumber: '',
-    level: '100L',
-    semester: 'First Semester',
+    level: '',
+    semester: '',
     academicSession: '',
   })
   const [showSuggestions, setShowSuggestions] = useState(false)
+  const [previewGenerated, setPreviewGenerated] = useState(false)
+  const [feedback, setFeedback] = useState({ error: '', success: '' })
+  const [toastVisible, setToastVisible] = useState(false)
 
   const filteredSchools = useMemo(() => {
     const query = form.institutionName.trim().toLowerCase()
@@ -47,6 +50,9 @@ export default function CoverPageGenerator() {
       ...prev,
       [field]: value,
     }))
+    if (feedback.error) {
+      setFeedback({ error: '', success: '' })
+    }
   }
 
   const selectSchool = (school) => {
@@ -63,11 +69,58 @@ export default function CoverPageGenerator() {
     }
   }
 
-  const previewAcademicSession = form.academicSession || '2023/2024'
+  const handleGeneratePreview = () => {
+    const missingFields = []
+    if (!form.institutionName.trim()) missingFields.push('Institution Name')
+    if (!form.courseTitle.trim()) missingFields.push('Course Title')
+    if (!form.studentName.trim()) missingFields.push('Student Name')
+
+    if (missingFields.length > 0) {
+      setFeedback({
+        error: `Please fill in: ${missingFields.join(', ')}`,
+        success: '',
+      })
+      setPreviewGenerated(false)
+      return
+    }
+
+    setPreviewGenerated(true)
+    setFeedback({
+      error: '',
+      success: 'Cover page generated!',
+    })
+    setToastVisible(true)
+    setTimeout(() => setToastVisible(false), 3000)
+  }
+
+  const handleDownloadPDF = async () => {
+    try {
+      const el = document.getElementById('print-area')
+      if (!el) return
+
+      const html2canvas = (await import('html2canvas')).default
+      const { jsPDF } = await import('jspdf')
+
+      const canvas = await html2canvas(el, { scale: 2, backgroundColor: '#ffffff' })
+      const imgData = canvas.toDataURL('image/png')
+
+      const pdf = new jsPDF('p', 'mm', 'a4')
+      const pdfWidth = pdf.internal.pageSize.getWidth()
+      const pdfHeight = pdf.internal.pageSize.getHeight()
+
+      pdf.addImage(imgData, 'PNG', 0, 0, pdfWidth, pdfHeight)
+      pdf.save('cover-page.pdf')
+    } catch (err) {
+      // fallback to print if PDF generation fails
+      handlePrint()
+    }
+  }
+
+  const previewAcademicSession = form.academicSession || '___'
 
   return (
     <main className="min-h-screen bg-[#0a0a1a] text-white px-4 py-10 sm:px-6 lg:px-8">
-      <div className="max-w-7xl mx-auto space-y-10">
+      <div className="max-w-7xl mx-auto space-y-10 relative">
         <div className="flex flex-col gap-4 sm:flex-row sm:items-end sm:justify-between">
           <div className="space-y-3">
             <p className="text-sm uppercase tracking-[0.32em] text-teal-300/80">PDF Tools</p>
@@ -84,7 +137,13 @@ export default function CoverPageGenerator() {
           </Link>
         </div>
 
-        <div className="grid gap-8 xl:grid-cols-[1.1fr_0.9fr]">
+        {toastVisible && (
+          <div className="pointer-events-none absolute right-0 top-0 z-20 rounded-2xl border border-emerald-500/20 bg-emerald-500/10 px-4 py-3 text-sm text-emerald-100 shadow-xl shadow-emerald-500/10">
+            Cover page generated!
+          </div>
+        )}
+
+        <div className={`grid gap-8 ${previewGenerated ? 'xl:grid-cols-[1.1fr_0.9fr]' : 'grid-cols-1'}`}>
           <div className="space-y-6 rounded-[2rem] border border-white/10 bg-white/5 p-6 shadow-2xl shadow-cyan-500/10">
             <div className="rounded-3xl border border-white/10 bg-[#08101f] p-5">
               <div className="flex items-center gap-3 text-teal-300">
@@ -92,7 +151,7 @@ export default function CoverPageGenerator() {
                 <span className="font-semibold">Fill the cover page details</span>
               </div>
               <p className="mt-3 text-sm text-gray-300">
-                The preview updates automatically as you type. Use the download button when your cover page is ready.
+                Complete the required fields, then click Generate Cover Page to see the live preview and access download.
               </p>
             </div>
 
@@ -104,6 +163,7 @@ export default function CoverPageGenerator() {
                   onChange={(event) => handleFieldChange('documentType', event.target.value)}
                   className="w-full rounded-2xl border border-white/10 bg-[#07121f] px-4 py-3 text-white outline-none focus:border-teal-400 focus:ring-2 focus:ring-teal-500/20"
                 >
+                  <option value="">Select document type</option>
                   {documentTypes.map((type) => (
                     <option key={type} value={type}>{type}</option>
                   ))}
@@ -228,6 +288,7 @@ export default function CoverPageGenerator() {
                   onChange={(event) => handleFieldChange('level', event.target.value)}
                   className="w-full rounded-2xl border border-white/10 bg-[#07121f] px-4 py-3 text-white outline-none focus:border-teal-400 focus:ring-2 focus:ring-teal-500/20"
                 >
+                  <option value="">Select level</option>
                   {levels.map((level) => (
                     <option key={level} value={level}>{level}</option>
                   ))}
@@ -243,6 +304,7 @@ export default function CoverPageGenerator() {
                   onChange={(event) => handleFieldChange('semester', event.target.value)}
                   className="w-full rounded-2xl border border-white/10 bg-[#07121f] px-4 py-3 text-white outline-none focus:border-teal-400 focus:ring-2 focus:ring-teal-500/20"
                 >
+                  <option value="">Select semester</option>
                   {semesters.map((semester) => (
                     <option key={semester} value={semester}>{semester}</option>
                   ))}
@@ -262,92 +324,125 @@ export default function CoverPageGenerator() {
 
             <button
               type="button"
-              onClick={handlePrint}
-              className="inline-flex items-center justify-center gap-2 rounded-2xl bg-teal-500 px-5 py-3 text-sm font-semibold text-black transition hover:bg-teal-400"
+              onClick={handleGeneratePreview}
+              className="inline-flex w-full items-center justify-center gap-2 rounded-2xl bg-teal-500 px-5 py-3 text-sm font-semibold text-black transition hover:bg-teal-400"
             >
-              <Printer className="h-4 w-4" />
-              Download PDF
+              <Sparkles className="h-4 w-4" />
+              Generate Cover Page
             </button>
+
+            {feedback.error && (
+              <p className="mt-3 rounded-2xl border border-red-500/20 bg-red-500/10 px-4 py-3 text-sm text-red-200">
+                {feedback.error}
+              </p>
+            )}
+            {feedback.success && (
+              <p className="mt-3 rounded-2xl border border-emerald-500/20 bg-emerald-500/10 px-4 py-3 text-sm text-emerald-100">
+                {feedback.success}
+              </p>
+            )}
           </div>
 
-          <div className="rounded-[2rem] border border-white/10 bg-white/5 p-6 shadow-2xl shadow-cyan-500/10">
-            <div className="flex items-center justify-between gap-4 rounded-3xl border border-white/10 bg-[#08101f] p-5">
-              <div>
-                <h2 className="text-lg font-semibold text-white">Live Preview</h2>
-                <p className="mt-1 text-sm text-gray-400">Your cover page will print exactly like this.</p>
+          {previewGenerated && (
+            <div className="rounded-[2rem] border border-white/10 bg-white/5 p-6 shadow-2xl shadow-cyan-500/10 animate-slide-in">
+              <div className="flex items-center justify-between gap-4 rounded-3xl border border-white/10 bg-[#08101f] p-5">
+                <div>
+                  <h2 className="text-lg font-semibold text-white">Live Preview</h2>
+                  <p className="mt-1 text-sm text-gray-400">Your cover page will print exactly like this.</p>
+                </div>
+                <span className="rounded-full bg-teal-500/10 px-3 py-1.5 text-xs uppercase tracking-[0.25em] text-teal-200">A4</span>
               </div>
-              <span className="rounded-full bg-teal-500/10 px-3 py-1.5 text-xs uppercase tracking-[0.25em] text-teal-200">A4</span>
-            </div>
 
-            <div
-              id="print-area"
-              className="mt-6 overflow-hidden rounded-[2rem] border border-slate-200/10 bg-white p-8 text-slate-950 shadow-xl"
-              style={{ aspectRatio: '0.707', minHeight: '720px' }}
-            >
-              <div className="flex h-full flex-col justify-between">
-                <div className="space-y-8 text-center">
-                  <div className="space-y-2">
-                    <p className="text-xs uppercase tracking-[0.35em] text-slate-500">{form.institutionName || 'YOUR INSTITUTION NAME'}</p>
-                    <p className="text-sm uppercase tracking-[0.35em] text-slate-500">
-                      {form.faculty ? `Faculty of ${form.faculty}` : 'Faculty of ___'}
-                    </p>
-                    <p className="text-sm uppercase tracking-[0.35em] text-slate-500">
-                      {form.department ? `Department of ${form.department}` : 'Department of ___'}
-                    </p>
-                  </div>
-
-                  <div className="space-y-4 px-4">
-                    <p className="uppercase text-xs tracking-[0.45em] text-slate-500">{form.documentType}</p>
-                    <h1 className="text-3xl leading-tight text-slate-950 sm:text-4xl">
-                      {form.courseTitle || 'Course Title Goes Here'}
-                    </h1>
-                    <p className="text-lg text-slate-700">{form.courseCode || 'COURSE CODE'}</p>
-                  </div>
-                </div>
-
-                <div className="space-y-6 px-4 pb-2 text-slate-700">
-                  <div className="grid gap-3 sm:grid-cols-2">
-                    <div className="rounded-3xl bg-slate-100/80 p-5">
-                      <p className="text-sm uppercase tracking-[0.25em] text-slate-500">Submitted to</p>
-                      <p className="mt-2 text-base font-semibold text-slate-900">{form.supervisorName || 'Lecturer / Supervisor Name'}</p>
+              <div
+                id="print-area"
+                className="mt-6 overflow-hidden rounded-[2rem] border border-slate-200/10 bg-white p-8 text-slate-950 shadow-xl transition duration-700 ease-out"
+                style={{ aspectRatio: '0.707', minHeight: '720px', background: '#ffffff' }}
+              >
+                <div className="flex h-full flex-col justify-between">
+                  <div className="space-y-8 text-center">
+                    <div className="space-y-2">
+                      <p className="text-xs uppercase tracking-[0.35em] text-slate-500">{form.institutionName || '___'}</p>
+                      <p className="text-sm uppercase tracking-[0.35em] text-slate-500">
+                        {form.faculty ? `Faculty of ${form.faculty}` : 'Faculty of ___'}
+                      </p>
+                      <p className="text-sm uppercase tracking-[0.35em] text-slate-500">
+                        {form.department ? `Department of ${form.department}` : 'Department of ___'}
+                      </p>
                     </div>
-                    <div className="rounded-3xl bg-slate-100/80 p-5">
-                      <p className="text-sm uppercase tracking-[0.25em] text-slate-500">Submitted by</p>
-                      <p className="mt-2 text-base font-semibold text-slate-900">{form.studentName || 'Student Full Name'}</p>
+
+                    <div className="space-y-4 px-4">
+                      <p className="uppercase text-xs tracking-[0.45em] text-slate-500">{form.documentType || '___'}</p>
+                      <h1 className="text-3xl leading-tight text-slate-950 sm:text-4xl">
+                        {form.courseTitle || '___'}
+                      </h1>
+                      <p className="text-lg text-slate-700">{form.courseCode || '___'}</p>
                     </div>
                   </div>
 
-                  <div className="grid gap-3 sm:grid-cols-3">
+                  <div className="space-y-6 px-4 pb-2 text-slate-700">
+                    <div className="grid gap-3 sm:grid-cols-2">
+                      <div className="rounded-3xl bg-slate-100/80 p-5">
+                        <p className="text-sm uppercase tracking-[0.25em] text-slate-500">Submitted to</p>
+                        <p className="mt-2 text-base font-semibold text-slate-900">{form.supervisorName || '___'}</p>
+                      </div>
+                      <div className="rounded-3xl bg-slate-100/80 p-5">
+                        <p className="text-sm uppercase tracking-[0.25em] text-slate-500">Submitted by</p>
+                        <p className="mt-2 text-base font-semibold text-slate-900">{form.studentName || '___'}</p>
+                      </div>
+                    </div>
+
+                    <div className="grid gap-3 sm:grid-cols-3">
+                      <div className="rounded-3xl bg-slate-100/80 p-5 text-center">
+                        <p className="text-xs uppercase tracking-[0.25em] text-slate-500">Matric Number</p>
+                        <p className="mt-2 text-sm font-semibold text-slate-900">{form.matricNumber || '___'}</p>
+                      </div>
+                      <div className="rounded-3xl bg-slate-100/80 p-5 text-center">
+                        <p className="text-xs uppercase tracking-[0.25em] text-slate-500">Level</p>
+                        <p className="mt-2 text-sm font-semibold text-slate-900">{form.level || '___'}</p>
+                      </div>
+                      <div className="rounded-3xl bg-slate-100/80 p-5 text-center">
+                        <p className="text-xs uppercase tracking-[0.25em] text-slate-500">Semester</p>
+                        <p className="mt-2 text-sm font-semibold text-slate-900">{form.semester || '___'}</p>
+                      </div>
+                    </div>
+
                     <div className="rounded-3xl bg-slate-100/80 p-5 text-center">
-                      <p className="text-xs uppercase tracking-[0.25em] text-slate-500">Matric Number</p>
-                      <p className="mt-2 text-sm font-semibold text-slate-900">{form.matricNumber || 'U2023/000000'}</p>
-                    </div>
-                    <div className="rounded-3xl bg-slate-100/80 p-5 text-center">
-                      <p className="text-xs uppercase tracking-[0.25em] text-slate-500">Level</p>
-                      <p className="mt-2 text-sm font-semibold text-slate-900">{form.level}</p>
-                    </div>
-                    <div className="rounded-3xl bg-slate-100/80 p-5 text-center">
-                      <p className="text-xs uppercase tracking-[0.25em] text-slate-500">Semester</p>
-                      <p className="mt-2 text-sm font-semibold text-slate-900">{form.semester}</p>
+                      <p className="text-xs uppercase tracking-[0.25em] text-slate-500">Academic Session</p>
+                      <p className="mt-2 text-sm font-semibold text-slate-900">{previewAcademicSession}</p>
                     </div>
                   </div>
 
-                  <div className="rounded-3xl bg-slate-100/80 p-5 text-center">
-                    <p className="text-xs uppercase tracking-[0.25em] text-slate-500">Academic Session</p>
-                    <p className="mt-2 text-sm font-semibold text-slate-900">{previewAcademicSession}</p>
+                  <div className="border-t border-slate-200/70 pt-4 text-center text-sm uppercase tracking-[0.35em] text-slate-500">
+                    {form.institutionName || '___'} • {previewAcademicSession.includes('/') ? previewAcademicSession.split('/')[0] : previewAcademicSession}
                   </div>
-                </div>
-
-                <div className="border-t border-slate-200/70 pt-4 text-center text-sm uppercase tracking-[0.35em] text-slate-500">
-                  {form.institutionName || 'INSTITUTION NAME'} • {previewAcademicSession.split('/')[0] || '2024'}
                 </div>
               </div>
+
+              <button
+                type="button"
+                onClick={handleDownloadPDF}
+                className="mt-6 inline-flex w-full items-center justify-center gap-2 rounded-2xl bg-[#00bcd4] px-5 py-3 text-sm font-semibold text-white transition hover:bg-cyan-400"
+              >
+                <Printer className="h-4 w-4" />
+                Download PDF
+              </button>
             </div>
-          </div>
+          )}
         </div>
       </div>
 
       <style jsx global>{`
+        @keyframes slideIn {
+          from {
+            opacity: 0;
+            transform: translateX(30px);
+          }
+          to {
+            opacity: 1;
+            transform: translateX(0);
+          }
+        }
+
         @media print {
           body * {
             visibility: hidden;
