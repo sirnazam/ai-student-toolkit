@@ -46,8 +46,9 @@ const tools = [
   {
     title: 'Word to PDF',
     description: 'Convert assignment documents from Word to PDF format quickly.',
+    href: '/tools/pdf-tools/word-to-pdf',
     icon: FileInput,
-    status: 'Coming Soon',
+    status: 'Live',
   },
   {
     title: 'PDF to Word',
