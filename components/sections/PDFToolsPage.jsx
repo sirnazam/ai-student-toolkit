@@ -53,8 +53,9 @@ const tools = [
   {
     title: 'PDF to Word',
     description: 'Turn your PDF into an editable Word document for easy updates.',
+    href: '/tools/pdf-tools/pdf-to-word',
     icon: FileEdit,
-    status: 'Coming Soon',
+    status: 'LIVE',
   },
   {
     title: 'PDF to JPG',
