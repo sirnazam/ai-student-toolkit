@@ -1,4 +1,6 @@
 import './globals.css'
+import ThemeProvider from '@/components/ThemeProvider'
+import ThemeSwitcher from '@/components/ThemeSwitcher'
 
 export const metadata = {
   title: 'AI Student Toolkit | Free Tools for African Students',
@@ -14,8 +16,11 @@ export const metadata = {
 export default function RootLayout({ children }) {
   return (
     <html lang="en">
-      <body className="bg-gradient-dark">
-        {children}
+      <body style={{ background: 'var(--bg-gradient)', color: 'var(--text-primary)' }}>
+        <ThemeProvider>
+          {children}
+          <ThemeSwitcher />
+        </ThemeProvider>
       </body>
     </html>
   )

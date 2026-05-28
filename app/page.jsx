@@ -18,12 +18,12 @@ export default function Home() {
   }, [])
 
   return (
-    <main className="min-h-screen bg-gradient-dark overflow-x-hidden">
+    <main className="min-h-screen overflow-x-hidden" style={{ background: 'var(--bg-gradient)' }}>
       <Navbar />
 
       {/* Hero Section */}
-      <section className="relative overflow-hidden pt-20 sm:pt-0">
-        <div className="min-h-screen flex items-center justify-center px-4 sm:px-6 lg:px-8 pt-32 pb-20 relative overflow-hidden">
+      <section className="relative overflow-hidden pt-4 md:pt-20">
+        <div className="min-h-screen flex items-center justify-center px-4 sm:px-6 lg:px-8 pt-0 pb-20 relative overflow-hidden">
           {/* Decorative gradient orbs */}
           <div className="absolute top-20 left-10 w-72 h-72 bg-primary-500 rounded-full mix-blend-screen filter blur-3xl opacity-20 animate-float"></div>
           <div className="absolute -bottom-8 right-10 w-72 h-72 bg-cyan-400 rounded-full mix-blend-screen filter blur-3xl opacity-10 animate-float" style={{ animationDelay: '2s' }}></div>
@@ -35,7 +35,7 @@ export default function Home() {
             </div>
 
             {/* Hero Right - Floating Card */}
-            <div className="flex w-full justify-center">
+            <div className="hidden md:flex w-full justify-center">
               <HeroCard />
             </div>
           </div>

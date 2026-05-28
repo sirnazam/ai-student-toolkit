@@ -2,6 +2,571 @@
 @tailwind components;
 @tailwind utilities;
 
+/* Theme Configuration */
+:root,
+html[data-theme='dark'] {
+  --bg-primary: #070912;
+  --bg-secondary: #0f0f0f;
+  --text-primary: #f3f4f6;
+  --bg-gradient: linear-gradient(135deg, #0f0f0f 0%, #1a1a2e 100%);
+  --navbar-bg: rgba(15, 15, 15, 0.8);
+  --footer-bg: rgba(15, 15, 15, 0.5);
+  --text-secondary: #d1d5db;
+}
+
+html[data-theme='navy'] {
+  --bg-primary: #0a0f2e;
+  --bg-secondary: #0d1240;
+  --text-primary: #f3f4f6;
+  --bg-gradient: linear-gradient(135deg, #0a0f2e 0%, #1a1f4a 100%);
+  --navbar-bg: rgba(10, 15, 46, 0.8);
+  --footer-bg: rgba(10, 15, 46, 0.5);
+  --text-secondary: #cbd5e1;
+}
+
+html[data-theme='forest'] {
+  --bg-primary: #071a12;
+  --bg-secondary: #0f2818;
+  --text-primary: #f3f4f6;
+  --bg-gradient: linear-gradient(135deg, #071a12 0%, #1a3d2e 100%);
+  --navbar-bg: rgba(7, 26, 18, 0.8);
+  --footer-bg: rgba(7, 26, 18, 0.5);
+  --text-secondary: #cbd5e1;
+}
+
+html[data-theme='light'] {
+  --bg-primary: #f8fafc;
+  --bg-secondary: #f1f5f9;
+  --text-primary: #0f172a;
+  --bg-gradient: linear-gradient(135deg, #f8fafc 0%, #e2e8f0 100%);
+  --navbar-bg: rgba(248, 250, 252, 0.9);
+  --footer-bg: rgba(241, 245, 249, 0.9);
+  --text-secondary: #475569;
+}
+
+html[data-theme='light'] body {
+  color: #0f172a;
+}
+
+/* Tool/feature cards */
+html[data-theme='light'] .glass {
+  background: rgba(255, 255, 255, 0.7) !important;
+  border: 1px solid rgba(0, 0, 0, 0.08) !important;
+}
+
+html[data-theme='light'] .glass-subtle {
+  background: rgba(255, 255, 255, 0.5) !important;
+  border: 1px solid rgba(0, 0, 0, 0.06) !important;
+}
+
+html[data-theme='light'] .bg-white\/5,
+html[data-theme='light'] .bg-white\/10 {
+  background-color: rgba(255, 255, 255, 0.8) !important;
+  box-shadow: 0 2px 12px rgba(0, 0, 0, 0.06) !important;
+}
+
+html[data-theme='light'] .border-white\/10,
+html[data-theme='light'] .border-white\/20 {
+  border-color: rgba(0, 0, 0, 0.1) !important;
+}
+
+html[data-theme='light'] .text-white {
+  color: #0f172a !important;
+}
+
+html[data-theme='light'] .text-gray-300,
+html[data-theme='light'] .text-gray-400 {
+  color: #475569 !important;
+}
+
+html[data-theme='light'] .text-gray-500 {
+  color: #64748b !important;
+}
+
+html[data-theme='light'] .bg-white\/10.backdrop-blur-xl {
+  background: rgba(255,255,255,0.85) !important;
+  border: 1px solid rgba(0,0,0,0.1) !important;
+}
+
+html[data-theme='light'] .hero-join-waitlist {
+  background-color: #0f172a !important;
+  color: #ffffff !important;
+}
+
+html[data-theme='light'] .hero-subtitle,
+html[data-theme='light'] .hero-stat-number,
+html[data-theme='light'] .hero-stat-label {
+  color: var(--text-primary) !important;
+}
+
+/* Fix "Built For African Students" badge visibility */
+html[data-theme='light'] .border-white\/20,
+html[data-theme='light'] .border-white\/10 {
+  border-color: rgba(0, 0, 0, 0.2) !important;
+}
+
+html[data-theme='light'] .text-white\/60,
+html[data-theme='light'] .text-white\/70,
+html[data-theme='light'] .text-white\/80 {
+  color: rgba(15, 23, 42, 0.7) !important;
+}
+
+/* Fix "Get Started Free" button - black bg needs white text */
+html[data-theme='light'] button.bg-black,
+html[data-theme='light'] a.bg-black,
+html[data-theme='light'] [class*="bg-black"] {
+  background-color: #1e293b !important;
+  color: #ffffff !important;
+}
+
+/* Fix CGPA calculator card - Live Preview, Open Full Calculator, subtitle text */
+html[data-theme='light'] .text-gray-400,
+html[data-theme='light'] .text-gray-500,
+html[data-theme='light'] .text-slate-400,
+html[data-theme='light'] .text-slate-500 {
+  color: #475569 !important;
+}
+
+html[data-theme='light'] .text-white\/50,
+html[data-theme='light'] .text-white\/40 {
+  color: rgba(15, 23, 42, 0.5) !important;
+}
+
+html[data-theme='light'] ::-webkit-scrollbar-track {
+  background: rgba(0, 0, 0, 0.05);
+}
+
+/* Fix faint "Built For African Students" badge */
+html[data-theme='light'] .border-white\/20 {
+  border-color: rgba(14, 165, 233, 0.6) !important;
+  color: #0f172a !important;
+}
+
+/* Make the hero badge more pronounced */
+html[data-theme='light'] .glass.inline-flex {
+  border-color: rgba(14, 165, 233, 0.9) !important;
+  background: rgba(14, 165, 233, 0.06) !important;
+  box-shadow: 0 6px 18px rgba(14, 165, 233, 0.08) !important;
+  color: #0f172a !important;
+}
+
+html[data-theme='light'] .glass.inline-flex .text-primary-300 {
+  color: #0f172a !important;
+  font-weight: 600 !important;
+  opacity: 1 !important;
+}
+
+html[data-theme='light'] .glass.inline-flex .text-primary-400 {
+  color: #06b6d4 !important;
+  opacity: 1 !important;
+}
+
+/* Make header 'Live Preview' label fully white and visible */
+html[data-theme='light'] .text-xs.text-gray-500 {
+  color: #ffffff !important;
+  opacity: 1 !important;
+  font-weight: 600 !important;
+}
+
+/* Fix faint CGPA Calculator title, Live Preview, Open Full Calculator, subtitle */
+html[data-theme='light'] .text-white\/40,
+html[data-theme='light'] .text-white\/50,
+html[data-theme='light'] .text-white\/60,
+html[data-theme='light'] .text-white\/70 {
+  color: #1e293b !important;
+  opacity: 1 !important;
+}
+
+/* Make calculator card header text fully visible */
+html[data-theme='light'] .text-sm.text-white\/60,
+html[data-theme='light'] .text-xs.text-white\/50 {
+  color: #334155 !important;
+  opacity: 1 !important;
+}
+
+/* Open Full Calculator link */
+html[data-theme='light'] a.text-white\/60,
+html[data-theme='light'] a.text-white\/50 {
+  color: #0ea5e9 !important;
+  opacity: 1 !important;
+}
+
+/* Make "Open Full Calculator" link and helper text fully white and sharp */
+html[data-theme='light'] a.text-gray-300.text-xs {
+  color: #ffffff !important;
+  opacity: 1 !important;
+  font-weight: 600 !important;
+}
+
+html[data-theme='light'] a.text-gray-300.text-xs:hover {
+  color: #ffffff !important;
+  background: rgba(255,255,255,0.04) !important;
+}
+
+html[data-theme='light'] p.text-center.text-xs.text-gray-600 {
+  color: #ffffff !important;
+  opacity: 1 !important;
+  font-weight: 600 !important;
+}
+
+/* Make footer copy and links more prominent in light theme */
+html[data-theme='light'] footer,
+html[data-theme='light'] footer p,
+html[data-theme='light'] footer .text-gray-400,
+html[data-theme='light'] footer a.text-gray-400,
+html[data-theme='light'] footer p.text-sm,
+html[data-theme='light'] footer .glass {
+  color: #0f172a !important;
+  opacity: 1 !important;
+  font-weight: 600 !important;
+}
+
+html[data-theme='light'] footer h4 {
+  color: #0f172a !important;
+}
+
+html[data-theme='light'] .cgpa-page {
+  background: #f8fafc !important;
+}
+
+html[data-theme='light'] .cgpa-header {
+  background: rgba(255, 255, 255, 0.96) !important;
+  border-color: rgba(15, 23, 42, 0.16) !important;
+}
+
+html[data-theme='light'] .cgpa-header a,
+html[data-theme='light'] .cgpa-header button,
+html[data-theme='light'] .cgpa-header .text-white,
+html[data-theme='light'] .cgpa-header .text-gray-400,
+html[data-theme='light'] .cgpa-header .text-gray-500 {
+  color: #0f172a !important;
+}
+
+html[data-theme='light'] .cgpa-header button {
+  background: rgba(15, 23, 42, 0.04) !important;
+  border-color: rgba(15, 23, 42, 0.12) !important;
+}
+
+html[data-theme='light'] .cgpa-school-card {
+  background: #ffffff !important;
+  border-color: rgba(15, 23, 42, 0.12) !important;
+  color: #0f172a;
+}
+
+html[data-theme='light'] .cgpa-school-card .text-white {
+  color: #0f172a !important;
+}
+
+html[data-theme='light'] .cgpa-school-card .text-gray-400,
+html[data-theme='light'] .cgpa-school-card .text-gray-500 {
+  color: #475569 !important;
+}
+
+html[data-theme='light'] .cgpa-school-card .bg-cyan-500\/10 {
+  background: rgba(6, 182, 212, 0.12) !important;
+}
+
+html[data-theme='light'] .cgpa-school-dropdown {
+  background: #ffffff !important;
+  border-color: rgba(15, 23, 42, 0.12) !important;
+}
+
+html[data-theme='light'] .cgpa-school-dropdown .cgpa-school-search,
+html[data-theme='light'] .cgpa-school-dropdown input,
+html[data-theme='light'] .cgpa-school-dropdown select {
+  background: #f8fafc !important;
+  color: #0f172a !important;
+  border-color: rgba(15, 23, 42, 0.12) !important;
+}
+
+html[data-theme='light'] .cgpa-school-dropdown .placeholder-gray-500 {
+  color: #94a3b8 !important;
+}
+
+html[data-theme='light'] .cgpa-school-dropdown button,
+html[data-theme='light'] .cgpa-school-dropdown .text-sm,
+html[data-theme='light'] .cgpa-school-dropdown .text-xs {
+  color: #0f172a !important;
+}
+
+html[data-theme='light'] .grade-picker-toggle,
+html[data-theme='light'] .grade-dropdown-menu {
+  background: #ffffff !important;
+  color: #0f172a !important;
+  border-color: rgba(15, 23, 42, 0.12) !important;
+}
+
+html[data-theme='light'] .grade-picker-toggle {
+  box-shadow: none !important;
+}
+
+html[data-theme='light'] .grade-picker-toggle span,
+html[data-theme='light'] .grade-picker-toggle .text-gray-400 {
+  color: #475569 !important;
+}
+
+html[data-theme='light'] .grade-dropdown-menu div {
+  color: #0f172a !important;
+}
+
+html[data-theme='light'] .grade-dropdown-menu div:hover {
+  background: rgba(15, 23, 42, 0.06) !important;
+}
+
+html[data-theme='light'] .cgpa-summary-card {
+  background: #ffffff !important;
+  border-color: rgba(15, 23, 42, 0.12) !important;
+}
+
+html[data-theme='light'] .cgpa-summary-card p,
+html[data-theme='light'] .cgpa-summary-card span,
+html[data-theme='light'] .cgpa-summary-card .text-white,
+html[data-theme='light'] .cgpa-summary-card .text-gray-400,
+html[data-theme='light'] .cgpa-summary-card .text-gray-500,
+html[data-theme='light'] .cgpa-summary-card .text-cyan-400 {
+  color: #0f172a !important;
+}
+
+html[data-theme='light'] .cgpa-tabs {
+  background: rgba(15, 23, 42, 0.04) !important;
+  border-color: rgba(15, 23, 42, 0.12) !important;
+}
+
+html[data-theme='light'] .cgpa-tabs button {
+  color: #475569 !important;
+}
+
+html[data-theme='light'] .cgpa-tabs button.bg-cyan-500 {
+  background: #0f172a !important;
+  color: #ffffff !important;
+}
+
+html[data-theme='forest'] .cgpa-page {
+  background: linear-gradient(135deg, rgba(7, 26, 18, 0.95) 0%, rgba(15, 44, 26, 0.95) 100%) !important;
+}
+
+html[data-theme='forest'] .cgpa-header {
+  background: rgba(7, 26, 18, 0.92) !important;
+  border-color: rgba(7, 26, 18, 0.24) !important;
+}
+
+html[data-theme='forest'] .cgpa-header a,
+html[data-theme='forest'] .cgpa-header button,
+html[data-theme='forest'] .cgpa-header .text-white,
+html[data-theme='forest'] .cgpa-header .text-gray-400,
+html[data-theme='forest'] .cgpa-header .text-gray-500 {
+  color: #f8fafc !important;
+}
+
+html[data-theme='forest'] .cgpa-header button {
+  background: rgba(15, 44, 26, 0.45) !important;
+  border-color: rgba(255, 255, 255, 0.12) !important;
+}
+
+html[data-theme='forest'] .cgpa-school-card {
+  background: rgba(7, 26, 18, 0.9) !important;
+  border-color: rgba(14, 79, 43, 0.28) !important;
+  color: #f8fafc !important;
+}
+
+html[data-theme='forest'] .cgpa-school-card .text-white {
+  color: #f8fafc !important;
+}
+
+html[data-theme='forest'] .cgpa-school-card .text-gray-400,
+html[data-theme='forest'] .cgpa-school-card .text-gray-500 {
+  color: rgba(248, 250, 252, 0.8) !important;
+}
+
+html[data-theme='forest'] .cgpa-school-dropdown {
+  background: rgba(7, 26, 18, 0.96) !important;
+  border-color: rgba(14, 79, 43, 0.28) !important;
+}
+
+html[data-theme='forest'] .cgpa-school-dropdown .cgpa-school-search,
+html[data-theme='forest'] .cgpa-school-dropdown input,
+html[data-theme='forest'] .cgpa-school-dropdown select {
+  background: rgba(11, 36, 23, 0.95) !important;
+  color: #f8fafc !important;
+  border-color: rgba(14, 79, 43, 0.28) !important;
+}
+
+html[data-theme='forest'] .cgpa-school-dropdown .placeholder-gray-500 {
+  color: rgba(248, 250, 252, 0.6) !important;
+}
+
+html[data-theme='forest'] .cgpa-school-dropdown button,
+html[data-theme='forest'] .cgpa-school-dropdown .text-sm,
+html[data-theme='forest'] .cgpa-school-dropdown .text-xs {
+  color: #f8fafc !important;
+}
+
+html[data-theme='forest'] .cgpa-school-dropdown .text-gray-400,
+html[data-theme='forest'] .cgpa-school-dropdown .text-gray-500 {
+  color: rgba(248, 250, 252, 0.75) !important;
+}
+
+html[data-theme='forest'] .grade-picker-toggle,
+html[data-theme='forest'] .grade-dropdown-menu {
+  background: rgba(7, 26, 18, 0.95) !important;
+  color: #f8fafc !important;
+  border-color: rgba(14, 79, 43, 0.28) !important;
+}
+
+html[data-theme='forest'] .grade-picker-toggle span,
+html[data-theme='forest'] .grade-picker-toggle .text-gray-400 {
+  color: rgba(248, 250, 252, 0.85) !important;
+}
+
+html[data-theme='forest'] .grade-dropdown-menu div {
+  color: #f8fafc !important;
+}
+
+html[data-theme='forest'] .grade-dropdown-menu div:hover {
+  background: rgba(255, 255, 255, 0.05) !important;
+}
+
+html[data-theme='forest'] .cgpa-summary-card {
+  background: rgba(7, 26, 18, 0.88) !important;
+  border-color: rgba(14, 79, 43, 0.28) !important;
+}
+
+html[data-theme='forest'] .cgpa-summary-card p,
+html[data-theme='forest'] .cgpa-summary-card span,
+html[data-theme='forest'] .cgpa-summary-card .text-white,
+html[data-theme='forest'] .cgpa-summary-card .text-gray-400,
+html[data-theme='forest'] .cgpa-summary-card .text-gray-500,
+html[data-theme='forest'] .cgpa-summary-card .text-cyan-400 {
+  color: #f8fafc !important;
+}
+
+html[data-theme='forest'] .cgpa-tabs {
+  background: rgba(7, 26, 18, 0.9) !important;
+  border-color: rgba(14, 79, 43, 0.28) !important;
+}
+
+html[data-theme='forest'] .cgpa-tabs button {
+  color: rgba(248, 250, 252, 0.8) !important;
+}
+
+html[data-theme='forest'] .cgpa-tabs button.bg-cyan-500 {
+  background: rgba(6, 182, 212, 0.16) !important;
+  color: #f8fafc !important;
+}
+
+html[data-theme='dark'] .cgpa-page {
+  background: linear-gradient(135deg, rgba(7, 10, 18, 0.96) 0%, rgba(12, 15, 24, 0.96) 100%) !important;
+}
+
+html[data-theme='dark'] .cgpa-header {
+  background: rgba(8, 11, 18, 0.96) !important;
+  border-color: rgba(255, 255, 255, 0.08) !important;
+}
+
+html[data-theme='dark'] .cgpa-header a,
+html[data-theme='dark'] .cgpa-header button,
+html[data-theme='dark'] .cgpa-header .text-white,
+html[data-theme='dark'] .cgpa-header .text-gray-400,
+html[data-theme='dark'] .cgpa-header .text-gray-500 {
+  color: #ffffff !important;
+}
+
+html[data-theme='dark'] .cgpa-header button {
+  background: rgba(255, 255, 255, 0.06) !important;
+  border-color: rgba(255, 255, 255, 0.12) !important;
+}
+
+html[data-theme='dark'] .cgpa-school-card {
+  background: rgba(7, 10, 18, 0.92) !important;
+  border-color: rgba(255, 255, 255, 0.08) !important;
+  color: #ffffff !important;
+}
+
+html[data-theme='dark'] .cgpa-school-card .text-white {
+  color: #ffffff !important;
+}
+
+html[data-theme='dark'] .cgpa-school-card .text-gray-400,
+html[data-theme='dark'] .cgpa-school-card .text-gray-500 {
+  color: rgba(255, 255, 255, 0.75) !important;
+}
+
+html[data-theme='dark'] .cgpa-school-dropdown {
+  background: rgba(7, 10, 18, 0.98) !important;
+  border-color: rgba(255, 255, 255, 0.1) !important;
+}
+
+html[data-theme='dark'] .cgpa-school-dropdown .cgpa-school-search,
+html[data-theme='dark'] .cgpa-school-dropdown input,
+html[data-theme='dark'] .cgpa-school-dropdown select {
+  background: rgba(12, 15, 24, 0.95) !important;
+  color: #ffffff !important;
+  border-color: rgba(255, 255, 255, 0.12) !important;
+}
+
+html[data-theme='dark'] .cgpa-school-dropdown .placeholder-gray-500 {
+  color: rgba(255, 255, 255, 0.55) !important;
+}
+
+html[data-theme='dark'] .cgpa-school-dropdown button,
+html[data-theme='dark'] .cgpa-school-dropdown .text-sm,
+html[data-theme='dark'] .cgpa-school-dropdown .text-xs {
+  color: #ffffff !important;
+}
+
+html[data-theme='dark'] .cgpa-school-dropdown .text-gray-400,
+html[data-theme='dark'] .cgpa-school-dropdown .text-gray-500 {
+  color: rgba(255, 255, 255, 0.75) !important;
+}
+
+html[data-theme='dark'] .grade-picker-toggle,
+html[data-theme='dark'] .grade-dropdown-menu {
+  background: rgba(12, 15, 24, 0.96) !important;
+  color: #ffffff !important;
+  border-color: rgba(255, 255, 255, 0.12) !important;
+}
+
+html[data-theme='dark'] .grade-picker-toggle span,
+html[data-theme='dark'] .grade-picker-toggle .text-gray-400 {
+  color: rgba(255, 255, 255, 0.85) !important;
+}
+
+html[data-theme='dark'] .grade-dropdown-menu div {
+  color: #ffffff !important;
+}
+
+html[data-theme='dark'] .grade-dropdown-menu div:hover {
+  background: rgba(255, 255, 255, 0.06) !important;
+}
+
+html[data-theme='dark'] .cgpa-summary-card {
+  background: rgba(7, 10, 18, 0.9) !important;
+  border-color: rgba(255, 255, 255, 0.1) !important;
+}
+
+html[data-theme='dark'] .cgpa-summary-card p,
+html[data-theme='dark'] .cgpa-summary-card span,
+html[data-theme='dark'] .cgpa-summary-card .text-white,
+html[data-theme='dark'] .cgpa-summary-card .text-gray-400,
+html[data-theme='dark'] .cgpa-summary-card .text-gray-500,
+html[data-theme='dark'] .cgpa-summary-card .text-cyan-400 {
+  color: #ffffff !important;
+}
+
+html[data-theme='dark'] .cgpa-tabs {
+  background: rgba(7, 10, 18, 0.92) !important;
+  border-color: rgba(255, 255, 255, 0.1) !important;
+}
+
+html[data-theme='dark'] .cgpa-tabs button {
+  color: rgba(255, 255, 255, 0.75) !important;
+}
+
+html[data-theme='dark'] .cgpa-tabs button.bg-cyan-500 {
+  background: rgba(255, 255, 255, 0.08) !important;
+  color: #ffffff !important;
+}
+
 * {
   margin: 0;
   padding: 0;
@@ -19,13 +584,14 @@ html {
 }
 
 body {
-  background: linear-gradient(135deg, #0f0f0f 0%, #1a1a2e 100%);
-  color: #f3f4f6;
+  background: var(--bg-gradient);
+  color: var(--text-primary);
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
     'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
     sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  transition: background 0.3s ease, color 0.3s ease;
 }
 
 /* Glassmorphism effect */

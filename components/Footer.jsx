@@ -36,9 +36,9 @@ export default function Footer() {
       initial="hidden"
       whileInView="visible"
       viewport={{ once: true }}
-      className="glass border-t border-white/10 backdrop-blur-xl"
+      className="glass border-t border-white/10 backdrop-blur-xl transition-colors duration-300"
       style={{
-        background: 'rgba(15, 15, 15, 0.5)',
+        background: 'var(--footer-bg)',
       }}
     >
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 sm:py-16">

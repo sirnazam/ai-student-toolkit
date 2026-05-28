@@ -40,7 +40,7 @@ export default function Hero({ onExplore, onJoinWaitlist }) {
   ]
 
   return (
-    <section className="min-h-screen flex items-center justify-center px-4 sm:px-6 lg:px-8 pt-32 pb-20 relative overflow-hidden">
+    <section className="min-h-auto md:min-h-screen flex items-center justify-center px-4 sm:px-6 lg:px-8 pt-8 md:pt-32 pb-12 md:pb-20 relative overflow-hidden">
       {/* Decorative gradient orbs */}
       <div className="absolute top-20 left-10 w-72 h-72 bg-primary-500 rounded-full mix-blend-screen filter blur-3xl opacity-20 animate-float"></div>
       <div className="absolute -bottom-8 right-10 w-72 h-72 bg-cyan-400 rounded-full mix-blend-screen filter blur-3xl opacity-10 animate-float" style={{ animationDelay: '2s' }}></div>
@@ -52,7 +52,7 @@ export default function Hero({ onExplore, onJoinWaitlist }) {
         animate="visible"
       >
         {/* Left content */}
-        <div className="w-full max-w-2xl space-y-8">
+        <div className="w-full max-w-2xl mx-auto md:mx-0 space-y-8 text-center md:text-left">
           {/* Badge */}
           <motion.div
             variants={itemVariants}
@@ -73,7 +73,7 @@ export default function Hero({ onExplore, onJoinWaitlist }) {
           {/* Subtitle */}
           <motion.p
             variants={itemVariants}
-            className="text-lg sm:text-xl text-gray-300 leading-relaxed"
+            className="hero-subtitle text-lg sm:text-xl text-gray-300 leading-relaxed"
           >
             Free student utilities for calculating CGPA, generating CVs, summarizing notes, and boosting academic productivity.
           </motion.p>
@@ -81,7 +81,7 @@ export default function Hero({ onExplore, onJoinWaitlist }) {
           {/* CTA Buttons */}
           <motion.div
             variants={itemVariants}
-            className="flex flex-col sm:flex-row gap-4 pt-4"
+            className="flex flex-col sm:flex-row gap-4 pt-4 items-center"
           >
             <button
               onClick={onExplore}
@@ -92,7 +92,7 @@ export default function Hero({ onExplore, onJoinWaitlist }) {
             </button>
             <button
               onClick={onJoinWaitlist}
-              className="flex items-center justify-center gap-2 px-8 py-4 glass rounded-2xl font-semibold text-white hover:bg-white/20 transition-smooth border border-white/20"
+              className="hero-join-waitlist flex items-center justify-center gap-2 px-8 py-4 rounded-2xl font-semibold bg-white text-primary-600 hover:shadow-glow transition-smooth hover:scale-105 active:scale-95"
             >
               Join Waitlist
             </button>
@@ -103,7 +103,7 @@ export default function Hero({ onExplore, onJoinWaitlist }) {
             variants={containerVariants}
             initial="hidden"
             animate="visible"
-            className="grid grid-cols-3 gap-6 pt-8"
+            className="hero-stats grid grid-cols-1 md:grid-cols-3 gap-6 pt-8"
           >
             {stats.map((stat, index) => (
               <motion.div
@@ -111,10 +111,10 @@ export default function Hero({ onExplore, onJoinWaitlist }) {
                 variants={statsVariants}
                 className="glass rounded-2xl p-6 text-center border border-white/20 bg-white/10 flex flex-col justify-center items-center gap-2"
               >
-                <div className="text-3xl sm:text-4xl font-extrabold text-white leading-none tracking-tight">
+                <div className="hero-stat-number text-3xl sm:text-4xl font-extrabold text-white leading-none tracking-tight">
                   {stat.number}
                 </div>
-                <p className="text-xs sm:text-sm text-gray-300 uppercase tracking-wider leading-snug">
+                <p className="hero-stat-label text-xs sm:text-sm text-gray-300 uppercase tracking-wider leading-snug">
                   {stat.label}
                 </p>
               </motion.div>

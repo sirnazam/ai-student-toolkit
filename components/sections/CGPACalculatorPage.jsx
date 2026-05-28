@@ -193,9 +193,9 @@ export default function CGPACalculatorPage() {
     : null
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-[#0a0a1a] via-[#0d1425] to-[#0a0a1a]">
+    <div className="min-h-screen cgpa-page" style={{ background: 'var(--bg-gradient)' }}>
       {/* Header */}
-      <div className="sticky top-0 z-50 border-b border-white/10 backdrop-blur-xl bg-black/30">
+      <div className="sticky top-0 z-50 border-b border-white/10 backdrop-blur-xl bg-[#001f5c] cgpa-header">
         <div className="max-w-6xl mx-auto px-4 py-4 flex items-center justify-between">
           <div className="flex items-center gap-4">
             <Link href="/" className="flex items-center gap-2 text-gray-400 hover:text-white transition-colors">
@@ -243,14 +243,14 @@ export default function CGPACalculatorPage() {
         <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} className="relative">
           <button
             onClick={() => setShowSchoolPicker(!showSchoolPicker)}
-            className="w-full flex items-center justify-between p-4 rounded-2xl bg-white/5 border border-white/10 hover:border-cyan-500/30 transition-all group"
+            className="w-full flex items-center justify-between p-4 rounded-2xl bg-[#003d99] border border-white/10 hover:border-cyan-500/30 transition-all group cgpa-school-card"
           >
             <div className="flex items-center gap-3">
               <div className="w-10 h-10 rounded-xl bg-cyan-500/10 flex items-center justify-center">
                 <BookOpen className="w-5 h-5 text-cyan-400" />
               </div>
               <div className="text-left">
-                <p className="text-xs text-gray-400">Your University</p>
+                <p className="text-xs text-white">Your University</p>
                 <p className="text-sm font-semibold text-white">{displaySchoolName}</p>
               </div>
             </div>
@@ -268,7 +268,7 @@ export default function CGPACalculatorPage() {
                 initial={{ opacity: 0, y: -10, scale: 0.98 }}
                 animate={{ opacity: 1, y: 0, scale: 1 }}
                 exit={{ opacity: 0, y: -10, scale: 0.98 }}
-                className="absolute top-full mt-2 w-full z-50 rounded-2xl bg-[#0f1628] border border-white/10 shadow-2xl overflow-hidden"
+                className="absolute top-full mt-2 w-full z-50 rounded-2xl bg-[#003d99] border border-white/10 shadow-2xl overflow-hidden cgpa-school-dropdown"
               >
                 <div className="p-3 border-b border-white/10">
                   <input
@@ -276,7 +276,7 @@ export default function CGPACalculatorPage() {
                     placeholder="Search university..."
                     value={schoolSearch}
                     onChange={e => setSchoolSearch(e.target.value)}
-                    className="w-full bg-white/5 border border-white/10 rounded-xl px-3 py-2 text-sm text-white placeholder-gray-500 focus:outline-none focus:border-cyan-500/50"
+                    className="w-full bg-white/5 border border-white/10 rounded-xl px-3 py-2 text-sm text-white placeholder-gray-500 focus:outline-none focus:border-cyan-500/50 cgpa-school-search"
                   />
                 </div>
                 <div className="max-h-64 overflow-y-auto">
@@ -304,7 +304,7 @@ export default function CGPACalculatorPage() {
                     value={customSchoolName}
                     onChange={e => setCustomSchoolName(e.target.value)}
                     placeholder="Type your institution name e.g. Yabatech, Moshood Abiola Polytechnic..."
-                    className="w-full bg-white/5 border border-white/10 rounded-xl px-3 py-2 text-sm text-white placeholder-gray-500 focus:outline-none focus:border-cyan-500/50"
+                    className="w-full bg-white/5 border border-white/10 rounded-xl px-3 py-2 text-sm text-white placeholder-gray-500 focus:outline-none focus:border-cyan-500/50 cgpa-school-search"
                   />
                   <div className="mt-3 flex flex-col gap-2">
                     <span className="inline-flex items-center rounded-full bg-cyan-500/10 px-3 py-1 text-xs text-cyan-300 border border-cyan-500/20">
@@ -321,7 +321,7 @@ export default function CGPACalculatorPage() {
                       <select
                         value={customSystem}
                         onChange={e => setCustomSystem(e.target.value)}
-                        className="w-full bg-white/5 border border-white/10 rounded-xl px-3 py-2 text-sm text-white focus:outline-none focus:border-cyan-500/50"
+                        className="w-full bg-white/5 border border-white/10 rounded-xl px-3 py-2 text-sm text-white focus:outline-none focus:border-cyan-500/50 cgpa-school-select"
                       >
                         <option value="five_point">5.0 Scale</option>
                         <option value="four_point">4.0 Scale</option>
@@ -353,7 +353,7 @@ export default function CGPACalculatorPage() {
         {/* CGPA Summary Card */}
         <motion.div
           initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.1 }}
-          className="relative rounded-3xl overflow-hidden"
+          className="relative rounded-3xl overflow-hidden cgpa-summary-card"
           style={{ background: 'linear-gradient(135deg, rgba(6,182,212,0.15) 0%, rgba(14,165,233,0.1) 50%, rgba(99,102,241,0.1) 100%)' }}
         >
           <div className="absolute inset-0 border border-cyan-500/20 rounded-3xl" />
@@ -424,7 +424,7 @@ export default function CGPACalculatorPage() {
         </motion.div>
 
         {/* Tabs */}
-        <div className="flex gap-1 p-1 bg-white/5 rounded-xl border border-white/10">
+        <div className="flex gap-1 p-1 bg-white/5 rounded-xl border border-white/10 cgpa-tabs">
           {[
             { id: 'calculator', label: 'Calculator', icon: Calculator },
             { id: 'semesters', label: 'Semesters', icon: BookOpen },
@@ -508,7 +508,7 @@ export default function CGPACalculatorPage() {
               {/* Grade Reference */}
               <div className="flex gap-2 flex-wrap">
                 {gradingSystem.grades.map(g => (
-                  <span key={g.grade} className="text-xs px-2 py-1 rounded-lg bg-white/5 border border-white/10 text-gray-300">
+                  <span key={g.grade} className="text-xs px-2 py-1 rounded-lg bg-white/5 border border-white/10 text-white">
                     <span className="font-bold text-white">{g.grade}</span> = {g.points} pts ({g.range})
                   </span>
                 ))}
@@ -561,13 +561,13 @@ export default function CGPACalculatorPage() {
                       <div className="col-span-5 sm:col-span-3 relative grade-dropdown-container">
                         <div
                           onClick={() => setOpenDropdown(openDropdown === course.id ? null : course.id)}
-                          className="w-full bg-[#1a2035] border border-white/10 rounded-lg px-3 py-1.5 text-sm text-white cursor-pointer flex items-center justify-between"
+                          className="w-full bg-[#003d99] border border-white/10 rounded-lg px-3 py-1.5 text-sm text-white cursor-pointer flex items-center justify-between grade-picker-toggle"
                         >
                           <span>{course.grade || 'Grade'}</span>
-                          <span className="text-gray-400">▾</span>
+                          <span className="text-white">▾</span>
                         </div>
                         {openDropdown === course.id && (
-                          <div className="absolute left-0 right-0 mt-2 rounded-xl bg-[#1a2035] border border-white/10 shadow-xl z-50 overflow-hidden">
+                          <div className="absolute left-0 right-0 mt-2 rounded-xl bg-[#003d99] border border-white/10 shadow-xl z-50 overflow-hidden grade-dropdown-menu">
                             {gradingSystem.grades.map(g => (
                               <div
                                 key={g.grade}
