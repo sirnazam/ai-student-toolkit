@@ -119,13 +119,13 @@ export default function CoverPageGenerator() {
   const previewAcademicSession = form.academicSession || '___'
 
   return (
-    <main className="min-h-screen bg-[#0a0a1a] text-white px-4 py-10 sm:px-6 lg:px-8">
+    <main className="min-h-screen bg-[#0a0a1a] bg-[var(--bg-primary)] text-white px-4 py-10 sm:px-6 lg:px-8">
       <div className="max-w-7xl mx-auto space-y-10 relative">
         <div className="flex flex-col gap-4 sm:flex-row sm:items-end sm:justify-between">
           <div className="space-y-3">
             <p className="text-sm uppercase tracking-[0.32em] text-teal-300/80">PDF Tools</p>
-            <h1 className="text-4xl sm:text-5xl font-bold">Cover Page Generator</h1>
-            <p className="max-w-3xl text-gray-300 sm:text-lg">
+            <h1 className="text-4xl sm:text-5xl font-bold text-[var(--text-primary)]">Cover Page Generator</h1>
+            <p className="max-w-3xl text-gray-300 text-[var(--text-secondary)] sm:text-lg">
               Create a polished Nigerian university cover page and download it as a PDF.
             </p>
           </div>

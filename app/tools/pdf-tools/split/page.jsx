@@ -251,15 +251,15 @@ export default function SplitPDFRoute() {
   }
 
   return (
-    <main className="min-h-screen bg-[#090a1d] text-white px-4 py-10 sm:px-6 lg:px-8">
+    <main className="min-h-screen bg-[#090a1d] bg-[var(--bg-primary)] text-white px-4 py-10 sm:px-6 lg:px-8">
       <div className="mx-auto max-w-6xl">
         <div className="mb-10 flex flex-col gap-6 sm:flex-row sm:items-center sm:justify-between">
           <div>
             <p className="text-sm uppercase tracking-[0.35em] text-teal-300/80">PDF Tools</p>
-            <h1 className="mt-4 text-4xl font-bold tracking-tight text-white sm:text-5xl">
+            <h1 className="mt-4 text-4xl font-bold tracking-tight text-white text-[var(--text-primary)] sm:text-5xl">
               Split PDF
             </h1>
-            <p className="mt-4 max-w-3xl text-gray-300 sm:text-lg">
+            <p className="mt-4 max-w-3xl text-gray-300 text-[var(--text-secondary)] sm:text-lg">
               Upload a PDF and split it into extracted pages, individual files, or custom page ranges — directly in your browser.
             </p>
           </div>

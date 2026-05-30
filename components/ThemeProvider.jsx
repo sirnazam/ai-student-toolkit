@@ -7,7 +7,7 @@ export default function ThemeProvider({ children }) {
 
   useEffect(() => {
     // Initialize theme on mount
-    const savedTheme = localStorage.getItem('toolkit-theme') || 'dark'
+    const savedTheme = localStorage.getItem('toolkit-theme') || 'light'
     document.documentElement.setAttribute('data-theme', savedTheme)
     setIsMounted(true)
   }, [])

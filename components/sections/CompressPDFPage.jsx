@@ -163,7 +163,7 @@ export default function CompressPDFPage() {
       : 0
 
   return (
-    <main className="min-h-screen bg-[#070912] text-white px-4 py-10 sm:px-6 lg:px-8">
+    <main className="min-h-screen bg-[#070912] bg-[var(--bg-primary)] text-white px-4 py-10 sm:px-6 lg:px-8">
       <div className="mx-auto max-w-6xl space-y-8">
         <section className="rounded-[2rem] border border-white/10 bg-white/5 p-6 shadow-2xl shadow-cyan-500/10 backdrop-blur-xl sm:p-10">
           <div className="flex flex-col gap-4 md:flex-row md:items-center md:justify-between">
@@ -171,10 +171,10 @@ export default function CompressPDFPage() {
               <p className="inline-flex items-center gap-2 rounded-full bg-cyan-500/10 px-3 py-1 text-sm font-semibold text-cyan-300">
                 <ArrowDownCircle className="h-4 w-4" /> Compress PDF
               </p>
-              <h1 className="mt-4 text-3xl font-bold tracking-tight text-white sm:text-4xl">
+              <h1 className="mt-4 text-3xl font-bold tracking-tight text-white text-[var(--text-primary)] sm:text-4xl">
                 Reduce PDF file size
               </h1>
-              <p className="mt-3 max-w-2xl text-sm leading-6 text-gray-300 sm:text-base">
+              <p className="mt-3 max-w-2xl text-sm leading-6 text-gray-300 text-[var(--text-secondary)] sm:text-base">
                 Compress your PDFs in the browser for faster sharing and easy submission without losing quality.
               </p>
             </div>

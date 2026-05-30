@@ -101,19 +101,35 @@ const tools = [
   },
 ]
 
+const toolColorMap = {
+  'Cover Page Generator': 'bg-orange-500',
+  'Merge PDFs': 'bg-red-500',
+  'Compress PDF': 'bg-green-500',
+  'Split PDF': 'bg-purple-500',
+  'Word to PDF': 'bg-blue-500',
+  'PDF to Word': 'bg-sky-500',
+  'PDF to JPG': 'bg-yellow-500',
+  'JPG to PDF': 'bg-pink-500',
+  'Rotate PDF': 'bg-teal-500',
+  'Add Page Numbers': 'bg-indigo-500',
+  'Remove Pages': 'bg-rose-500',
+  'Assignment Formatter': 'bg-amber-500',
+  'PDF Summarizer': 'bg-violet-500',
+}
+
 export default function PDFToolsPage() {
   return (
-    <main className="min-h-screen bg-[#0a0a1a] text-white px-4 py-10 sm:px-6 lg:px-8">
+    <main className="pdf-tools-page min-h-screen bg-[var(--bg-primary)] text-[var(--text-primary)] px-4 py-10 sm:px-6 lg:px-8">
       <div className="max-w-7xl mx-auto">
         <div className="flex flex-col gap-6 sm:flex-row sm:items-center sm:justify-between mb-10">
           <div className="space-y-3">
-            <p className="inline-flex items-center text-sm uppercase tracking-[0.35em] text-teal-300/80">
+            <p className="inline-flex items-center text-sm uppercase tracking-[0.35em] text-cyan-400">
               <span className="mr-2">PDF Tools</span>
             </p>
-            <h1 className="text-4xl sm:text-5xl font-bold text-white">
+            <h1 className="text-4xl sm:text-5xl font-bold text-[var(--text-primary)]">
               PDF Tools
             </h1>
-            <p className="max-w-3xl text-gray-300 sm:text-lg">
+            <p className="max-w-3xl text-[var(--text-secondary)] sm:text-lg">
               Everything you need to handle documents as a Nigerian student.
             </p>
           </div>
@@ -129,6 +145,7 @@ export default function PDFToolsPage() {
           {tools.map((tool) => {
             const ToolIcon = tool.icon
             const isLive = tool.status.toLowerCase() === 'live'
+            const iconBgColor = toolColorMap[tool.title]
             const card = (
               <div
                 className={`h-full rounded-3xl border p-6 bg-white/5 transition-all ${
@@ -138,9 +155,9 @@ export default function PDFToolsPage() {
                 }`}
               >
                 <div className="flex items-center justify-between gap-4">
-                        <div className="inline-flex h-14 w-14 items-center justify-center rounded-3xl bg-teal-500/10 text-teal-200">
+                        <div className={`w-12 h-12 rounded-xl flex items-center justify-center ${iconBgColor}`}>
                           {tool.icon ? (
-                            <tool.icon className="h-7 w-7" />
+                            <tool.icon className="text-white h-6 w-6" />
                           ) : (
                             <div className="text-sm font-semibold">PDF</div>
                           )}

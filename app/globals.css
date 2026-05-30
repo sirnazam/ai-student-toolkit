@@ -44,8 +44,10 @@ html[data-theme='light'] {
   --text-secondary: #475569;
 }
 
-html[data-theme='light'] body {
-  color: #0f172a;
+body {
+  background-color: var(--bg-primary);
+  color: var(--text-primary);
+  transition: background-color 0.3s ease, color 0.3s ease;
 }
 
 /* Tool/feature cards */
@@ -99,6 +101,56 @@ html[data-theme='light'] .hero-stat-label {
   color: var(--text-primary) !important;
 }
 
+/* Page backgrounds */
+html[data-theme="light"] {
+  background-color: #f0f4f8;
+}
+
+/* Fix invisible headings */
+html[data-theme="light"] h1,
+html[data-theme="light"] h2,
+html[data-theme="light"] h3 {
+  color: #1a1a2e !important;
+}
+
+/* Fix subtitle/description text */
+html[data-theme="light"] p,
+html[data-theme="light"] span {
+  color: #374151;
+}
+
+/* Fix cards - give them visible background and border */
+html[data-theme="light"] .rounded-\[2rem\],
+html[data-theme="light"] .rounded-3xl,
+html[data-theme="light"] .rounded-\[1\.5rem\] {
+  background-color: #ffffff !important;
+  border-color: #d1d5db !important;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+}
+
+/* Fix drag/drop upload areas */
+html[data-theme="light"] .border-dashed {
+  border-color: #9ca3af !important;
+  background-color: #f9fafb !important;
+}
+
+/* Fix badge/pill labels */
+html[data-theme="light"] .bg-cyan-500\/10 {
+  background-color: rgba(6, 182, 212, 0.15) !important;
+}
+
+/* Fix Back to Home button */
+html[data-theme="light"] .border-white\/10 {
+  border-color: #d1d5db !important;
+  background-color: #ffffff !important;
+  color: #1a1a2e !important;
+}
+
+/* Fix LIVE badge */
+html[data-theme="light"] .bg-cyan-500\/20 {
+  background-color: rgba(6,182,212,0.2) !important;
+}
+
 /* Fix "Built For African Students" badge visibility */
 html[data-theme='light'] .border-white\/20,
 html[data-theme='light'] .border-white\/10 {
@@ -119,9 +171,33 @@ html[data-theme='light'] [class*="bg-black"] {
   color: #ffffff !important;
 }
 
+/* Fix hero CGPA calculator card colors */
+html[data-theme='light'] .text-gray-300 {
+  color: #374151 !important;
+}
+
+html[data-theme='light'] .text-gray-400 {
+  color: #6b7280 !important;
+}
+
+html[data-theme='light'] .text-gray-500 {
+  color: #4b5563 !important;
+}
+
+html[data-theme='light'] .bg-white\/5,
+html[data-theme='light'] .bg-white\/\[0\.05\] {
+  background-color: #f3f4f6 !important;
+}
+
+html[data-theme='light'] .border-white\/10 {
+  border-color: #e5e7eb !important;
+}
+
+html[data-theme='light'] .text-white {
+  color: #1a1a2e !important;
+}
+
 /* Fix CGPA calculator card - Live Preview, Open Full Calculator, subtitle text */
-html[data-theme='light'] .text-gray-400,
-html[data-theme='light'] .text-gray-500,
 html[data-theme='light'] .text-slate-400,
 html[data-theme='light'] .text-slate-500 {
   color: #475569 !important;
@@ -161,9 +237,9 @@ html[data-theme='light'] .glass.inline-flex .text-primary-400 {
   opacity: 1 !important;
 }
 
-/* Make header 'Live Preview' label fully white and visible */
+/* Make header 'Live Preview' label visible on light theme */
 html[data-theme='light'] .text-xs.text-gray-500 {
-  color: #ffffff !important;
+  color: #1a1a2e !important;
   opacity: 1 !important;
   font-weight: 600 !important;
 }
@@ -191,23 +267,42 @@ html[data-theme='light'] a.text-white\/50 {
   opacity: 1 !important;
 }
 
-/* Make "Open Full Calculator" link and helper text fully white and sharp */
+/* Make "Open Full Calculator" link and helper text visible in light theme */
 html[data-theme='light'] a.text-gray-300.text-xs {
-  color: #ffffff !important;
+  color: #1a1a2e !important;
   opacity: 1 !important;
   font-weight: 600 !important;
 }
 
 html[data-theme='light'] a.text-gray-300.text-xs:hover {
-  color: #ffffff !important;
-  background: rgba(255,255,255,0.04) !important;
+  color: #1a1a2e !important;
+  background: rgba(31, 41, 55, 0.08) !important;
 }
 
 html[data-theme='light'] p.text-center.text-xs.text-gray-600 {
-  color: #ffffff !important;
+  color: #1a1a2e !important;
   opacity: 1 !important;
   font-weight: 600 !important;
 }
+
+html[data-theme="light"] .text-gray-400,
+html[data-theme="light"] .text-gray-500 {
+  color: #6b7280 !important;
+}
+
+html[data-theme="light"] .bg-white\/5,
+html[data-theme="light"] .bg-white\/\[0\.05\] {
+  background-color: #f3f4f6 !important;
+}
+
+html[data-theme="light"] .border-white\/10 {
+  border-color: #e5e7eb !important;
+}
+
+html[data-theme="light"] .text-white {
+  color: #1a1a2e !important;
+}
+
 
 /* Make footer copy and links more prominent in light theme */
 html[data-theme='light'] footer,
@@ -348,6 +443,50 @@ html[data-theme='forest'] .cgpa-page {
 html[data-theme='forest'] .cgpa-header {
   background: rgba(7, 26, 18, 0.92) !important;
   border-color: rgba(7, 26, 18, 0.24) !important;
+}
+
+/* Themed overrides scoped to the PDF tools page */
+
+/* NAVY theme - inner cards */
+html[data-theme="navy"] .pdf-tools-page .bg-white\/5,
+html[data-theme="navy"] .pdf-tools-page .rounded-\[2rem\],
+html[data-theme="navy"] .pdf-tools-page .rounded-3xl {
+  background-color: rgba(255, 255, 255, 0.06) !important;
+  border-color: rgba(255, 255, 255, 0.1) !important;
+}
+
+/* FOREST theme - inner cards */
+html[data-theme="forest"] .pdf-tools-page .bg-white\/5,
+html[data-theme="forest"] .pdf-tools-page .rounded-\[2rem\],
+html[data-theme="forest"] .pdf-tools-page .rounded-3xl {
+  background-color: rgba(255, 255, 255, 0.06) !important;
+  border-color: rgba(255, 255, 255, 0.1) !important;
+}
+
+/* DARK theme - keep default */
+html[data-theme="dark"] .pdf-tools-page .bg-white\/5 {
+  background-color: rgba(255, 255, 255, 0.05) !important;
+}
+
+/* Input fields for all dark themes */
+html[data-theme="navy"] .pdf-tools-page input,
+html[data-theme="navy"] .pdf-tools-page select,
+html[data-theme="navy"] .pdf-tools-page textarea,
+html[data-theme="forest"] .pdf-tools-page input,
+html[data-theme="forest"] .pdf-tools-page select,
+html[data-theme="forest"] .pdf-tools-page textarea {
+  background-color: rgba(255, 255, 255, 0.08) !important;
+  color: #ffffff !important;
+  border-color: rgba(255, 255, 255, 0.15) !important;
+}
+
+/* Light theme input fields */
+html[data-theme="light"] .pdf-tools-page input,
+html[data-theme="light"] .pdf-tools-page select,
+html[data-theme="light"] .pdf-tools-page textarea {
+  background-color: #ffffff !important;
+  color: #1a1a2e !important;
+  border-color: #d1d5db !important;
 }
 
 html[data-theme='forest'] .cgpa-header a,

@@ -2,9 +2,9 @@
 
 import { useState } from 'react'
 import Link from 'next/link'
-import { FileText } from 'lucide-react'
+import { BookOpen } from 'lucide-react'
 
-export default function CVBuilderPage() {
+export default function StudyAssistantPage() {
   const [email, setEmail] = useState('')
   const [status, setStatus] = useState('')
 
@@ -15,7 +15,7 @@ export default function CVBuilderPage() {
       return
     }
 
-    const toolName = 'CV Builder'
+    const toolName = 'Study Assistant'
     const mailto = `mailto:sirnazam01@gmail.com?subject=${encodeURIComponent(
       `Waitlist request for ${toolName}`
     )}&body=${encodeURIComponent(
@@ -41,11 +41,11 @@ export default function CVBuilderPage() {
       <div className="max-w-3xl mx-auto rounded-3xl border border-white/10 bg-[var(--bg-secondary)] backdrop-blur-xl p-8 sm:p-12 shadow-2xl shadow-cyan-500/10">
         <div className="flex flex-col items-center gap-4 text-center">
           <div className="inline-flex items-center justify-center w-16 h-16 rounded-3xl bg-green-500/10 text-green-200 border border-green-500/20">
-            <FileText className="w-8 h-8" />
+            <BookOpen className="w-8 h-8" />
           </div>
           <div>
-            <h1 className="text-3xl sm:text-4xl font-bold text-[var(--text-primary)]">CV Builder</h1>
-            <p className="mt-3 text-gray-300">Coming Soon</p>
+            <h1 className="text-3xl sm:text-4xl font-bold text-[var(--text-primary)]">Study Assistant</h1>
+            <p className="mt-3 text-gray-300">Get AI-powered help understanding any course topic. Summarize notes, explain concepts, and prepare smarter for exams.</p>
           </div>
           <span className="inline-flex items-center rounded-full bg-white/10 px-4 py-1.5 text-sm font-medium text-cyan-200 border border-cyan-500/20">
             We&apos;re building this tool. Join the waitlist to be notified.

@@ -99,7 +99,7 @@ export default function HeroCard() {
                   placeholder="MTH"
                   onChange={e => updateCourseField(course.id, 'name', e.target.value)}
                   onFocus={e => e.target.select()}
-                  className="w-16 bg-transparent border border-white/10 rounded-lg px-2 py-1 text-xs text-white placeholder:text-gray-500 focus:outline-none focus:border-cyan-400"
+                  className="w-20 bg-transparent border border-white/10 rounded-lg px-2 py-1 text-xs text-white placeholder:text-gray-500 focus:outline-none focus:border-cyan-400"
                 />
                 <span className="text-xs text-gray-500">/</span>
                 <input
@@ -108,7 +108,7 @@ export default function HeroCard() {
                   placeholder="101"
                   onChange={e => updateCourseField(course.id, 'code', e.target.value)}
                   onFocus={e => e.target.select()}
-                  className="w-16 bg-transparent border border-white/10 rounded-lg px-2 py-1 text-xs text-white placeholder:text-gray-500 focus:outline-none focus:border-cyan-400"
+                  className="w-20 bg-transparent border border-white/10 rounded-lg px-2 py-1 text-xs text-white placeholder:text-gray-500 focus:outline-none focus:border-cyan-400"
                 />
                 <div className="ml-auto flex items-center gap-2">
                   <input
@@ -119,7 +119,7 @@ export default function HeroCard() {
                     placeholder="3"
                     onChange={e => updateCourseField(course.id, 'units', e.target.value)}
                     onFocus={e => e.target.select()}
-                    className="w-14 bg-transparent border border-white/10 rounded-lg px-2 py-1 text-xs text-white placeholder:text-gray-500 focus:outline-none focus:border-cyan-400"
+                    className="w-16 bg-transparent border border-white/10 rounded-lg px-2 py-1 text-xs text-white placeholder:text-gray-500 focus:outline-none focus:border-cyan-400"
                   />
                   <span className="text-xs text-gray-500">units</span>
                 </div>
