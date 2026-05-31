@@ -23,7 +23,7 @@ export default function Home() {
 
       {/* Hero Section */}
       <section className="relative overflow-hidden pt-4 md:pt-20">
-        <div className="min-h-screen flex items-center justify-center px-4 sm:px-6 lg:px-8 pt-0 pb-20 relative overflow-hidden">
+        <div className="min-h-[60vh] md:min-h-screen flex items-center justify-center px-4 sm:px-6 lg:px-8 pt-0 pb-20 relative overflow-hidden">
           {/* Decorative gradient orbs */}
           <div className="absolute top-20 left-10 w-72 h-72 bg-primary-500 rounded-full mix-blend-screen filter blur-3xl opacity-20 animate-float"></div>
           <div className="absolute -bottom-8 right-10 w-72 h-72 bg-cyan-400 rounded-full mix-blend-screen filter blur-3xl opacity-10 animate-float" style={{ animationDelay: '2s' }}></div>

@@ -61,7 +61,8 @@ const tools = [
     title: 'PDF to JPG',
     description: 'Extract pages from your PDF as high-quality JPG images.',
     icon: ImageIcon,
-    status: 'Coming Soon',
+    href: '/tools/pdf-tools/pdf-to-jpg',
+    status: 'Live',
   },
   {
     title: 'JPG to PDF',
